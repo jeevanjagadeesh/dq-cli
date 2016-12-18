@@ -1,0 +1,1 @@
+oie exportObjects -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -sdn <<SecurityDomain>> -rs <<RepositoryService>> -pn <<ProjectName>> -fp "<<ExportFilePath>>" -ow <<OverwriteExportFile>> -oo "<<OtherOptions>>" -cp "<<ControlFilePath>>"

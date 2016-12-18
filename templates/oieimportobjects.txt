@@ -1,0 +1,2 @@
+
+oie importObjects -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -rs <<RepositoryService>> -tp <<TargetProject>> -sp <<SourceProject>> -fp <<ImportFilePath>> -oo "<<OtherOptions>>" -cr <<ConflictResolution>>
