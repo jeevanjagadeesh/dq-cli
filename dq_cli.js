@@ -5,6 +5,7 @@ var fs = require('fs');
 var _ = require('lodash');
 var mv = require('mv');
 var moment = require('moment');
+var childProcess = require('child_process');
 
 var log = logger.createLogger({
   name: "dq_cli"
@@ -98,6 +99,18 @@ function main() {
           log.info("processing all elements completed");
         });
       });
+    }, function(err) {
+      if (err) {
+        log.error({err: err}, 'Error JSON array looping');
+      }
+      // File creation complete, invovke the script
+      childProcess.exec(infacmd_op_file, function(err, stdout, stderr) {
+        if (err) {
+          log.error({err: err}, 'Error in executing file');
+        }
+        log.info({stdout: stdout, stderr: stderr }, ' Execution done');
+        log.info("processing JSON Array done");
+      });
     });
   });
 }
@@ -110,9 +123,9 @@ function stringReplace(str, replaceString, newString) {
 }
 
 function writeToExecutable(fileName, data) {
-  log.info("Going to write into existing file");
+  //log.info("Going to write into existing file");
   fs.appendFileSync(fileName, data);
-  log.info("Data written successfully!");
+  //log.info("Data written successfully!");
 }
 
 process.on('uncaughtException', function(err) {
