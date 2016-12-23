@@ -1,10 +1,8 @@
 var logger = require('bunyan');
 var path = require("path");
-var excel = require('./excel2Json.js');
 var async = require('async');
 var fs = require('fs');
 var _ = require('lodash');
-var config = require('./domaininfo/config.json');
 var mv = require('mv');
 var moment = require('moment');
 
@@ -13,6 +11,8 @@ var log = logger.createLogger({
 });
 log.level('debug');
 
+var excel = require('./lib/excel2Json.js');
+var config = require('./domaininfo/config.json');
 var excel2Json = new excel(log);
 var baseDir = __dirname;
 
