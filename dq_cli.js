@@ -1,22 +1,26 @@
 var logger = require('bunyan');
 var path = require("path");
 var excel = require('./excel2Json.js');
-var util = require('util');
 var async = require('async');
 var fs = require('fs');
 var _ = require('lodash');
-var excel2Json = new excel();
 var config = require('./domaininfo/config.json');
 var mv = require('mv');
 var moment = require('moment');
 
+var log = logger.createLogger({
+  name: "dq_cli"
+});
+log.level('debug');
+
+var excel2Json = new excel(log);
 
 main();
 
 function main() {
-  console.log(' ******** Starting ******** ');
+  log.debug(' ******** Starting ******** ');
   var timeid = moment().format('YYYYMMDD[_]hmm');
-  console.log(' Current timestamp: ' + timeid);
+  log.info(' Current timestamp: ' + timeid);
   var myArgs = process.argv.slice(2);
   var plugin = myArgs[0];
   var xlspath = path.join(__dirname, 'input', plugin.concat('.xls'));
@@ -24,7 +28,7 @@ function main() {
   //Take backup of output file if already exists
   var backup_infacmd_op_file = path.join(__dirname, 'output', plugin.concat('_').concat(timeid).concat('.bat'));
   var isFileExist = fs.existsSync(infacmd_op_file);
-  console.log(isFileExist);
+  log.info(' isFileExist: ' + isFileExist);
 
   if (isFileExist) {
     mv(infacmd_op_file, backup_infacmd_op_file, function(err) {});
@@ -32,12 +36,12 @@ function main() {
 
   var workbook = excel2Json.readExcelFile(xlspath);
   excel2Json.to_json(workbook, function(result) {
-    //console.log('result == '+util.inspect(result));
+    //log.info({result: result}, 'result of excel read');
     async.forEachOf(result, function(value, key, callback) {
       var fileName = key + '.txt';
       fs.readFile(path.join(__dirname, 'templates', fileName), 'utf8', function(err, template) {
         if (err) {
-          console.log('No file --' + fileName);
+          log.info({fileName: fileName}, 'No file');
           return callback('No file -- ' + fileName);
         }
         callback(err, template);
@@ -53,17 +57,16 @@ function main() {
             _.forEach(config, function(value, key) {
               data = stringReplace(data, '<<' + key + '>>', value);
             });
-            console.log(data);
+            //log.info({data: data}, 'command output');
 
             writeToExecutable(infacmd_op_file, data);
-            console.log('\n');
           }
           callback();
         }, function(err) {
           if (err) {
-            console.log(err);
+            log.error({err: err}, 'Error from async array looping');
           }
-          console.log("processing all elements completed");
+          log.info("processing all elements completed");
         });
       });
     });
@@ -90,21 +93,23 @@ function deleteFile(backup_infacmd_op_file) {
 }
 
 function writeToExecutable(fileName, data) {
-  var fs = require("fs");
 
-  console.log("Going to write into existing file");
+  log.info("Going to write into existing file");
   fs.appendFile(fileName, data, function(err) {
     if (err) {
-      return console.error(err);
+      log.error({err: err}, "Error while file append");
+      return;
     }
 
-    console.log("Data written successfully!");
-    console.log("Let's read newly written data");
+    log.info("Data written successfully!");
+    log.info("Let's read newly written data");
+    // why read??
     fs.readFile(fileName, function(err, data) {
       if (err) {
-        return console.error(err);
+        log.error({err: err}, "Error in file read");
+        return;
       }
-      console.log("Asynchronous read: " + data.toString());
+      log.info({data: data.toString()}, "Asynchronous read");
     });
   });
 }
@@ -120,6 +125,6 @@ function renameFile(oldFile, newFile) {
 }
 
 process.on('uncaughtException', function(err) {
-  console.log('uncaughtException: ' + err);
+  log.error({err: err}, 'uncaughtException ');
   process.exit(1);
 });
