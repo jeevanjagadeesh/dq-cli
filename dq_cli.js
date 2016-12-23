@@ -16,14 +16,40 @@ var config = require('./domaininfo/config.json');
 var excel2Json = new excel(log);
 var baseDir = __dirname;
 
+var DEFAULT_PARAMS = {
+  src: "oie"
+};
+
+/**
+ * Parses the parameters:
+ * @param {String[]} consoleParams
+ */
+function parseParams(consoleParams) {
+  var params = _.clone(DEFAULT_PARAMS);
+  do {
+    var key = consoleParams.shift();
+    var val = consoleParams.shift();
+    if (!_.isString(key) || key.lastIndexOf('-', 0) !== 0 || !_.isString(val)) {
+      log.warn('Error parsing key / value pair', key, ':', val);
+    } else {
+      key = key.substr(1);
+      params[key] = val;
+    }
+  } while (consoleParams.length > 0);
+  return params;
+}
+
+// load console parameters
+var cParams = parseParams(process.argv.slice(2));
+log.info({params: cParams}, 'Using following params');
+
 main();
 
 function main() {
   log.debug(' ******** Starting ******** ');
   var timeid = moment().format('YYYYMMDD[_]hmm');
   log.info(' Current timestamp: ' + timeid);
-  var myArgs = process.argv.slice(2);
-  var plugin = myArgs[0];
+  var plugin = cParams.src;
   var xlspath = path.join(baseDir, 'input', plugin.concat('.xls'));
   var infacmd_op_file = path.join(baseDir, 'output', plugin.concat('.bat'));
   //Take backup of output file if already exists
