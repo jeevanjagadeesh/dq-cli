@@ -7,26 +7,26 @@ var fs = require('fs');
 var _ = require('lodash');
 var excel2Json = new excel();
 var config = require('./domaininfo/config.json');
-var fileExists = require('file-exists');
 var mv = require('mv');
 var moment = require('moment');
+
 
 main();
 
 function main() {
   console.log(' ******** Starting ******** ');
   var timeid = moment().format('YYYYMMDD[_]hmm');
-  console.log(' Current timestamp: '.concat(timeid));
+  console.log(' Current timestamp: ' + timeid);
   var myArgs = process.argv.slice(2);
   var plugin = myArgs[0];
   var xlspath = path.join(__dirname, 'input', plugin.concat('.xls'));
   var infacmd_op_file = path.join(__dirname, 'output', plugin.concat('.bat'));
   //Take backup of output file if already exists
   var backup_infacmd_op_file = path.join(__dirname, 'output', plugin.concat('_').concat(timeid).concat('.bat'));
-  console.log(fileExists(infacmd_op_file));
+  var isFileExist = fs.existsSync(infacmd_op_file);
+  console.log(isFileExist);
 
-  if (fileExists(infacmd_op_file)) {
-
+  if (isFileExist) {
     mv(infacmd_op_file, backup_infacmd_op_file, function(err) {});
   }
 
