@@ -80,18 +80,6 @@ function stringReplace(str, replaceString, newString) {
   return str;
 }
 
-function deleteFile(backup_infacmd_op_file) {
-
-  console.log("Going to delete an existing backup file :".concat(backup_infacmd_op_file));
-  fs.unlink(backup_infacmd_op_file, function(err) {
-    console.log("Inside deleteFile Function");
-    if (err) {
-      return console.error(err);
-    }
-    console.log("File deleted successfully!");
-  });
-}
-
 function writeToExecutable(fileName, data) {
 
   log.info("Going to write into existing file");
@@ -110,16 +98,6 @@ function writeToExecutable(fileName, data) {
         return;
       }
       log.info({data: data.toString()}, "Asynchronous read");
-    });
-  });
-}
-
-function renameFile(oldFile, newFile) {
-  fs.rename(oldFile, newFile, function(err) {
-    if (err) throw err;
-    fs.stat(oldFile, function(err, stats) {
-      if (err) throw err;
-      console.log('stats: ' + JSON.stringify(stats));
     });
   });
 }
