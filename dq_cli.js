@@ -14,22 +14,22 @@ var moment = require('moment');
 main();
 
 function main() {
-  console.log(' ******** Starting ******** '); 
-  var timeid=moment().format('YYYYMMDD[_]hmm');
-  console.log(' Current timestamp: '.concat(timeid)); 
-  var myArgs=process.argv.slice(2);
-  var plugin= myArgs[0];
-  var xlspath = path.join(__dirname, 'input',plugin.concat('.xls'));
-  var infacmd_op_file = path.join(__dirname, 'output',plugin.concat('.bat'));
+  console.log(' ******** Starting ******** ');
+  var timeid = moment().format('YYYYMMDD[_]hmm');
+  console.log(' Current timestamp: '.concat(timeid));
+  var myArgs = process.argv.slice(2);
+  var plugin = myArgs[0];
+  var xlspath = path.join(__dirname, 'input', plugin.concat('.xls'));
+  var infacmd_op_file = path.join(__dirname, 'output', plugin.concat('.bat'));
   //Take backup of output file if already exists
-  var backup_infacmd_op_file=path.join(__dirname, 'output',plugin.concat('_').concat(timeid).concat('.bat'));
+  var backup_infacmd_op_file = path.join(__dirname, 'output', plugin.concat('_').concat(timeid).concat('.bat'));
   console.log(fileExists(infacmd_op_file));
 
-   if (fileExists(infacmd_op_file)){   
+  if (fileExists(infacmd_op_file)) {
 
-   mv(infacmd_op_file, backup_infacmd_op_file,function(err) {});
-   }
-  
+    mv(infacmd_op_file, backup_infacmd_op_file, function(err) {});
+  }
+
   var workbook = excel2Json.readExcelFile(xlspath);
   excel2Json.to_json(workbook, function(result) {
     //console.log('result == '+util.inspect(result));
@@ -42,7 +42,7 @@ function main() {
         }
         callback(err, template);
         async.forEach(value, function(elementOfArray, callback) {
-			var data = template;
+          var data = template;
           if (elementOfArray.ExecuteOption !== 'Skip') {
             // replace xls values
             _.forEach(elementOfArray, function(value, key) {
@@ -53,9 +53,9 @@ function main() {
             _.forEach(config, function(value, key) {
               data = stringReplace(data, '<<' + key + '>>', value);
             });
-            console.log(data);			
-			
-			writeToExecutable(infacmd_op_file,data);
+            console.log(data);
+
+            writeToExecutable(infacmd_op_file, data);
             console.log('\n');
           }
           callback();
@@ -77,51 +77,47 @@ function stringReplace(str, replaceString, newString) {
   return str;
 }
 
-function deleteFile(backup_infacmd_op_file){
+function deleteFile(backup_infacmd_op_file) {
 
-console.log("Going to delete an existing backup file :" .concat(backup_infacmd_op_file));
-fs.unlink(backup_infacmd_op_file, function(err) {
-console.log("Inside deleteFile Function");
-   if (err) {
+  console.log("Going to delete an existing backup file :".concat(backup_infacmd_op_file));
+  fs.unlink(backup_infacmd_op_file, function(err) {
+    console.log("Inside deleteFile Function");
+    if (err) {
       return console.error(err);
-   }
-   console.log("File deleted successfully!");
-});
-
+    }
+    console.log("File deleted successfully!");
+  });
 }
-
 
 function writeToExecutable(fileName, data) {
-var fs = require("fs");
+  var fs = require("fs");
 
-console.log("Going to write into existing file");
-fs.appendFile(fileName, data,  function(err) {
-   if (err) {
+  console.log("Going to write into existing file");
+  fs.appendFile(fileName, data, function(err) {
+    if (err) {
       return console.error(err);
-   }
-   
-   console.log("Data written successfully!");
-   console.log("Let's read newly written data");
-   fs.readFile(fileName, function (err, data) {
+    }
+
+    console.log("Data written successfully!");
+    console.log("Let's read newly written data");
+    fs.readFile(fileName, function(err, data) {
       if (err) {
-         return console.error(err);
+        return console.error(err);
       }
       console.log("Asynchronous read: " + data.toString());
-   });
-});
-}
-
-function renameFile(oldFile,newFile){
-fs.rename(oldFile, newFile, function (err) {
-  if (err) throw err;
-  fs.stat(oldFile, function (err, stats) {
-    if (err) throw err;
-    console.log('stats: ' + JSON.stringify(stats));
+    });
   });
-});
-
 }
 
+function renameFile(oldFile, newFile) {
+  fs.rename(oldFile, newFile, function(err) {
+    if (err) throw err;
+    fs.stat(oldFile, function(err, stats) {
+      if (err) throw err;
+      console.log('stats: ' + JSON.stringify(stats));
+    });
+  });
+}
 
 process.on('uncaughtException', function(err) {
   console.log('uncaughtException: ' + err);
