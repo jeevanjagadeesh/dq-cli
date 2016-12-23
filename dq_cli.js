@@ -14,6 +14,7 @@ var log = logger.createLogger({
 log.level('debug');
 
 var excel2Json = new excel(log);
+var baseDir = __dirname;
 
 main();
 
@@ -23,10 +24,10 @@ function main() {
   log.info(' Current timestamp: ' + timeid);
   var myArgs = process.argv.slice(2);
   var plugin = myArgs[0];
-  var xlspath = path.join(__dirname, 'input', plugin.concat('.xls'));
-  var infacmd_op_file = path.join(__dirname, 'output', plugin.concat('.bat'));
+  var xlspath = path.join(baseDir, 'input', plugin.concat('.xls'));
+  var infacmd_op_file = path.join(baseDir, 'output', plugin.concat('.bat'));
   //Take backup of output file if already exists
-  var backup_infacmd_op_file = path.join(__dirname, 'output', plugin.concat('_').concat(timeid).concat('.bat'));
+  var backup_infacmd_op_file = path.join(baseDir, 'output', plugin.concat('_').concat(timeid).concat('.bat'));
   var isFileExist = fs.existsSync(infacmd_op_file);
   log.info(' isFileExist: ' + isFileExist);
 
@@ -39,7 +40,7 @@ function main() {
     //log.info({result: result}, 'result of excel read');
     async.forEachOf(result, function(value, key, callback) {
       var fileName = key + '.txt';
-      fs.readFile(path.join(__dirname, 'templates', fileName), 'utf8', function(err, template) {
+      fs.readFile(path.join(baseDir, 'templates', fileName), 'utf8', function(err, template) {
         if (err) {
           log.info({fileName: fileName}, 'No file');
           return callback('No file -- ' + fileName);
