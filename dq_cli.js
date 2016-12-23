@@ -67,6 +67,8 @@ function main() {
           if (err) {
             log.error({err: err}, 'Error from async array looping');
           }
+          // for every worksheet complete, add line break
+          writeToExecutable(infacmd_op_file, "\n");
           log.info("processing all elements completed");
         });
       });
@@ -82,25 +84,9 @@ function stringReplace(str, replaceString, newString) {
 }
 
 function writeToExecutable(fileName, data) {
-
   log.info("Going to write into existing file");
-  fs.appendFile(fileName, data, function(err) {
-    if (err) {
-      log.error({err: err}, "Error while file append");
-      return;
-    }
-
-    log.info("Data written successfully!");
-    log.info("Let's read newly written data");
-    // why read??
-    fs.readFile(fileName, function(err, data) {
-      if (err) {
-        log.error({err: err}, "Error in file read");
-        return;
-      }
-      log.info({data: data.toString()}, "Asynchronous read");
-    });
-  });
+  fs.appendFileSync(fileName, data);
+  log.info("Data written successfully!");
 }
 
 process.on('uncaughtException', function(err) {
