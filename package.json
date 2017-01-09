@@ -1,0 +1,30 @@
+{
+  "name": "dq-cli",
+  "version": "1.0.0",
+  "description": "automated script generation from xls",
+  "main": "dq_cli.js",
+  "dependencies": {
+    "async": "^2.1.4",
+    "bunyan": "^1.8.5",
+    "lodash": "^4.17.2",
+    "moment": "^2.17.1",
+    "npm": "^3.10.9",
+    "mv": "^2.1.1",
+    "replace-in-file": "^2.0.3",
+    "xlsx": "^0.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajeshgrs/dq-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rajeshgrs/dq-cli/issues"
+  },
+  "homepage": "https://github.com/rajeshgrs/dq-cli#readme"
+}

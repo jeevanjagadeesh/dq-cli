@@ -1,48 +1,80 @@
 var logger = require('bunyan');
 var path = require("path");
-var excel = require('./excel2Json.js');
-var util = require('util');
 var async = require('async');
 var fs = require('fs');
 var _ = require('lodash');
-var excel2Json = new excel();
-var config = require('./domaininfo/config.json');
-var fileExists = require('file-exists');
 var mv = require('mv');
 var moment = require('moment');
+var childProcess = require('child_process');
+
+var log = logger.createLogger({
+  name: "dq_cli"
+});
+log.level('debug');
+
+var excel = require('./lib/excel2Json.js');
+var config = require('./domaininfo/config.json');
+var excel2Json = new excel(log);
+var baseDir = __dirname;
+
+var DEFAULT_PARAMS = {
+  src: "oie"
+};
+
+/**
+ * Parses the parameters:
+ * @param {String[]} consoleParams
+ */
+function parseParams(consoleParams) {
+  var params = _.clone(DEFAULT_PARAMS);
+  do {
+    var key = consoleParams.shift();
+    var val = consoleParams.shift();
+    if (!_.isString(key) || key.lastIndexOf('-', 0) !== 0 || !_.isString(val)) {
+      log.warn('Error parsing key / value pair', key, ':', val);
+    } else {
+      key = key.substr(1);
+      params[key] = val;
+    }
+  } while (consoleParams.length > 0);
+  return params;
+}
+
+// load console parameters
+var cParams = parseParams(process.argv.slice(2));
+log.info({params: cParams}, 'Using following params');
 
 main();
 
 function main() {
-  console.log(' ******** Starting ******** '); 
-  var timeid=moment().format('YYYYMMDD[_]hmm');
-  console.log(' Current timestamp: '.concat(timeid)); 
-  var myArgs=process.argv.slice(2);
-  var plugin= myArgs[0];
-  var xlspath = path.join(__dirname, 'input',plugin.concat('.xls'));
-  var infacmd_op_file = path.join(__dirname, 'output',plugin.concat('.bat'));
+  log.debug(' ******** Starting ******** ');
+  var timeid = moment().format('YYYYMMDD[_]hmm');
+  log.info(' Current timestamp: ' + timeid);
+  var plugin = cParams.src;
+  var xlspath = path.join(baseDir, 'input', plugin.concat('.xls'));
+  var infacmd_op_file = path.join(baseDir, 'output', plugin.concat('.bat'));
   //Take backup of output file if already exists
-  var backup_infacmd_op_file=path.join(__dirname, 'output',plugin.concat('_').concat(timeid).concat('.bat'));
-  console.log(fileExists(infacmd_op_file));
+  var backup_infacmd_op_file = path.join(baseDir, 'output', plugin.concat('_').concat(timeid).concat('.bat'));
+  var isFileExist = fs.existsSync(infacmd_op_file);
+  log.info(' isFileExist: ' + isFileExist);
 
-   if (fileExists(infacmd_op_file)){   
+  if (isFileExist) {
+    mv(infacmd_op_file, backup_infacmd_op_file, function(err) {});
+  }
 
-   mv(infacmd_op_file, backup_infacmd_op_file,function(err) {});
-   }
-  
   var workbook = excel2Json.readExcelFile(xlspath);
   excel2Json.to_json(workbook, function(result) {
-    //console.log('result == '+util.inspect(result));
+    //log.info({result: result}, 'result of excel read');
     async.forEachOf(result, function(value, key, callback) {
       var fileName = key + '.txt';
-      fs.readFile(path.join(__dirname, 'templates', fileName), 'utf8', function(err, template) {
+      fs.readFile(path.join(baseDir, 'templates', fileName), 'utf8', function(err, template) {
         if (err) {
-          console.log('No file --' + fileName);
+          log.info({fileName: fileName}, 'No file');
           return callback('No file -- ' + fileName);
         }
         callback(err, template);
         async.forEach(value, function(elementOfArray, callback) {
-			var data = template;
+          var data = template;
           if (elementOfArray.ExecuteOption !== 'Skip') {
             // replace xls values
             _.forEach(elementOfArray, function(value, key) {
@@ -53,18 +85,31 @@ function main() {
             _.forEach(config, function(value, key) {
               data = stringReplace(data, '<<' + key + '>>', value);
             });
-            console.log(data);			
-			
-			writeToExecutable(infacmd_op_file,data);
-            console.log('\n');
+            //log.info({data: data}, 'command output');
+
+            writeToExecutable(infacmd_op_file, data);
           }
           callback();
         }, function(err) {
           if (err) {
-            console.log(err);
+            log.error({err: err}, 'Error from async array looping');
           }
-          console.log("processing all elements completed");
+          // for every worksheet complete, add line break
+          writeToExecutable(infacmd_op_file, "\n");
+          log.info("processing all elements completed");
         });
+      });
+    }, function(err) {
+      if (err) {
+        log.error({err: err}, 'Error JSON array looping');
+      }
+      // File creation complete, invovke the script
+      childProcess.exec(infacmd_op_file, function(err, stdout, stderr) {
+        if (err) {
+          log.error({err: err}, 'Error in executing file');
+        }
+        log.info({stdout: stdout, stderr: stderr }, ' Execution done');
+        log.info("processing JSON Array done");
       });
     });
   });
@@ -77,53 +122,13 @@ function stringReplace(str, replaceString, newString) {
   return str;
 }
 
-function deleteFile(backup_infacmd_op_file){
-
-console.log("Going to delete an existing backup file :" .concat(backup_infacmd_op_file));
-fs.unlink(backup_infacmd_op_file, function(err) {
-console.log("Inside deleteFile Function");
-   if (err) {
-      return console.error(err);
-   }
-   console.log("File deleted successfully!");
-});
-
-}
-
-
 function writeToExecutable(fileName, data) {
-var fs = require("fs");
-
-console.log("Going to write into existing file");
-fs.appendFile(fileName, data,  function(err) {
-   if (err) {
-      return console.error(err);
-   }
-   
-   console.log("Data written successfully!");
-   console.log("Let's read newly written data");
-   fs.readFile(fileName, function (err, data) {
-      if (err) {
-         return console.error(err);
-      }
-      console.log("Asynchronous read: " + data.toString());
-   });
-});
+  //log.info("Going to write into existing file");
+  fs.appendFileSync(fileName, data);
+  //log.info("Data written successfully!");
 }
-
-function renameFile(oldFile,newFile){
-fs.rename(oldFile, newFile, function (err) {
-  if (err) throw err;
-  fs.stat(oldFile, function (err, stats) {
-    if (err) throw err;
-    console.log('stats: ' + JSON.stringify(stats));
-  });
-});
-
-}
-
 
 process.on('uncaughtException', function(err) {
-  console.log('uncaughtException: ' + err);
+  log.error({err: err}, 'uncaughtException ');
   process.exit(1);
 });
