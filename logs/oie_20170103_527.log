@@ -1,0 +1,66 @@
+ERROR(s):
+cvc-elt.1: Cannot find the declaration of element 'importParams'.
+[ICMD_10033] Command [exportObjects] failed with error [[OIECMD_10006] Error occurred during export function. See previous error.].
+INFO:
+[rtm]
+Execution completed successfully.
+INFO:
+List of objects imported:
+Type,Name,Source Project,Target Project,Source Path,Target Path,Resolution,Renamed To
+Mapping,m_dq,CLU_PROJECT,CLU_PROJECT,/,/,replace,
+Flat File Data Object,ALL_SOURCE_DQ,CLU_PROJECT,CLU_PROJECT,/,/,replace,
+Reference Table,CC_RTM,CLU_PROJECT,CLU_PROJECT,/,/,replace,
+Total number of objects imported is [3].
+INFO:
+[Import Before Copy Tags Job]
+Execution completed successfully.
+INFO:
+[Multi-Instance Contribution Job]
+Execution completed successfully.
+INFO:
+[Import Data Object Job]
+Data Model Mappings resolution completed.
+INFO:
+[Import Before Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[SQL Endpoint Import Job]
+Data Model Mappings resolution completed.
+INFO:
+[Import Before Copy Matcher Transformation Job]
+Execution completed successfully.
+INFO:
+[Import Before Copy EDR Job]
+Non interactive connection resolution completed.
+INFO:
+[Import After Copy Hadoop Connection Job]
+Execution completed successfully.
+INFO:
+[Import Post Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[Import Post Copy Profile Time Update]
+Execution completed successfully.
+INFO:
+[EDR Import Job]
+Connections rebinding was successful.
+List of connections binding after import:
+Source Connection, Target Connection
+STAGE,STAGE
+
+INFO:
+[Import Post Copy Content]
+Execution completed successfully.
+INFO:
+[Import After Commit Tags Job]
+Execution completed successfully.
+INFO:
+[Import After Commit Hadoop Connection Job]
+Execution completed successfully.
+INFO:
+[Import After Commit AppSDK Job]
+Execution completed successfully.
+INFO:
+[Import Post Commit Content ]
+Execution completed successfully.
+Command ran successfully.

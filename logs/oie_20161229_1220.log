@@ -1,0 +1,3 @@
+ERROR(s):
+Control file [D:\Projects\dq-cli\oie_export_ctl_1.xml] does not exist.
+[ICMD_10033] Command [exportObjects] failed with error [[OIECMD_10006] Error occurred during export function. See previous error.].

@@ -18,13 +18,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rajeshgrs/dq-cli.git"
+    "type": "svn",
+    "url": "www.informtica.com/rajesh"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rajeshgrs/dq-cli/issues"
+    "url": "www.informtica.com/rajesh/issues"
   },
-  "homepage": "https://github.com/rajeshgrs/dq-cli#readme"
+  "homepage": "www.informtica.com/rajesh#readme"
 }

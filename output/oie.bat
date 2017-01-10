@@ -1,3 +1,7 @@
-oie exportObjects -dn Domain_116 -un Administrator -pd Administrator -sdn Native -rs MSR_DQ -pn CLU_PROJECT -fp "oie_mapping_export.xml" -ow true -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="/"" -cp "oie_export_ctl.xml"
-oie importObjects -dn Domain_116 -un Administrator -pd Administrator -rs MSR_DQ -tp PAM -sp PAM_910 -fp oie_mapping_export.xml -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="/"" -cr replace
-oie importObjects -dn Domain_116 -un Administrator -pd Administrator -rs MSR_DQ -tp PAM -sp PAM_910 -fp run_dq_sanity.xml -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="/"" -cr rename
+
+call C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat oie exportObjects -dn Domain_46 -un Administrator -pd Administrator -sdn Native -rs MRS_46 -pn CLU_PROJECT -fp "D:\Projects\dq-cli\cli_results\output\oieexportobjects_m.xml" -ow true -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="D:\Projects\dq-cli\cli_results\output\oieexportobjects_m.zip"" -cp "D:\Projects\dq-cli\cli_results\output\oieimportobjects_ctl.xml" >> C:\Projects\dq-cli\logs\oie.log
+
+
+
+call C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat oie importObjects -dn Domain_46 -un Administrator -pd Administrator -rs MRS_46 -tp CLU_PROJECT -sp CLU_PROJECT -fp D:\Projects\dq-cli\cli_results\input\oieimportobjects_m.xml -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="D:\Projects\dq-cli\cli_results\input\oieimportobjects_m.zip"" -cr replace >> C:\Projects\dq-cli\logs\oie.log
+

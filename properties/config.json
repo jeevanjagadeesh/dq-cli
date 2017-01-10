@@ -1,0 +1,17 @@
+{
+"DomainName":"Domain_46",
+"Host":"inbqm28s03",
+"Port":"9594",
+"UserName":"Administrator",
+"Password":"Administrator",
+"SecurityDomain":"Native",
+"INFACMD_PATH":"C:\\Informatica\\10.2.0\\clients\\DeveloperClient\\infacmd\\",
+"Version":"10.2.0",
+"Build":"46",
+"RepositoryService":"MRS_46",
+"cli_project_home_path":"D:\\Projects\\dq-cli\\",
+"email_to":"rajesh@informatica.com",
+"email_cc":"rajesh@informatica.com",
+"email_bcc":"rajesh@informatica.com"
+
+}

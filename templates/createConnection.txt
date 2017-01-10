@@ -1,0 +1,1 @@
+<<INFACMD_PATH>><<infacmd_type>> createconnection -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -sdn <<SecurityDomain>> -cn <<ConnectionName>> -cid <<ConnectionId>> -ct <<ConnectionType>> -cun <<ConnectionUserName>> -cpd <<ConnectionPassword>> -o "<<Options>>" >> <<LogFileName>>
