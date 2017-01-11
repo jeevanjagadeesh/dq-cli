@@ -1,6 +1,0 @@
-ERROR(s):
-The path [D:\Projects\dq-cli\cli_results\output\oieexportobjects_m.xml] specified for export file is not valid.
-[ICMD_10033] Command [exportObjects] failed with error [[OIECMD_10006] Error occurred during export function. See previous error.].
-ERROR(s):
-Import file [D:\Projects\dq-cli\cli_results\input\oieimportobjects_m.xml] does not exist.
-[ICMD_10033] Command [importObjects] failed with error [[OIECMD_10007] Error occurred during import function. See previous error.].
