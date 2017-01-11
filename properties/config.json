@@ -9,9 +9,12 @@
 "Version":"10.2.0",
 "Build":"46",
 "RepositoryService":"MRS_46",
+"DatabaseType":"ORACLE",
 "cli_project_home_path":"D:\\Projects\\dq-cli\\",
+"ModuleName":"DQT",
+"BranchName":"ML",
+"BuildDate":"16-August-2011",
 "email_to":"rajesh@informatica.com",
 "email_cc":"rajesh@informatica.com",
 "email_bcc":"rajesh@informatica.com"
-
 }
