@@ -62,9 +62,19 @@ function main() {
 			  	 'Name': 'oie-oieexportobjects_1-case2',
 			  	 'description': 'test  description 2',
 			  	 'status': 'Failed'
+	          },
+              {
+				 'Name': 'oie-oieexportobjects_1-case3',
+				 'description': 'test  description 3',
+				 'status': 'Failed'
 	          }
       ];
   jsonData.testCases = testCases;
+  var countBy = _.countBy(jsonData.testCases, 'status');
+  jsonData.passedTestCaseCount = countBy.Pass;
+  jsonData.failedTestCaseCount = countBy.Failed;
+  jsonData.totalTestCaseCount = jsonData.testCases.length;
+
   var trackerXml = xmlTemplate(jsonData);
   //log.info(trackerXml);
 console.log(trackerXml);
