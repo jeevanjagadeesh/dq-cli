@@ -3,6 +3,7 @@ var logger = require('bunyan');
 var path = require("path");
 var fs = require('fs');
 var _ = require('lodash');
+var pug = require('pug');
 var logPatternConfig = require('./config.js').logpattern;
 
 var log = logger.createLogger({
@@ -12,7 +13,11 @@ log.level('debug');
 
 var excel = require('./lib/excel2Json.js');
 var excel2Json = new excel(log);
+var config = require('./properties/config.json');
 var baseDir = __dirname;
+
+var mixinStr = fs.readFileSync(baseDir + '/mixins/QATrackerReport.pug', 'utf8')
+var xmlTemplate = pug.compile(mixinStr, { pretty: true });
 
 var DEFAULT_PARAMS = {
   src: "oie"
@@ -45,12 +50,31 @@ main();
 
 function main() {
   log.debug(' ******** Starting Log Reading ******** ');
-  log.info({ logPatternConfig: logPatternConfig.success }, 'logPatternConfig');
+  var jsonData = _.cloneDeep(config);
+  // just testing
+  var testCases = [
+	          {
+	            'Name': 'oie-oieexportobjects_1-case1',
+	            'description': 'test  description',
+	            'status': 'Pass'
+	          },
+	          {
+			  	 'Name': 'oie-oieexportobjects_1-case2',
+			  	 'description': 'test  description 2',
+			  	 'status': 'Failed'
+	          }
+      ];
+  jsonData.testCases = testCases;
+  var trackerXml = xmlTemplate(jsonData);
+  //log.info(trackerXml);
+console.log(trackerXml);
+  //log.info(jsonData);
+ //log.info({ logPatternConfig: logPatternConfig.success }, 'logPatternConfig');
   var plugin = cParams.src;
   var xlspath = path.join(baseDir, 'input', plugin.concat('.xls'));
   var logName = path.join(baseDir, 'logs', 'oie-oieimportobjects-case1.log');
   searchLog(logName, function(err, success) {
-    console.log(success);
+    //console.log(success);
   });
 }
 
