@@ -1,0 +1,28 @@
+mixin createTestCase(testCase)
+  TestCase
+    Name #{testCase.Name}
+    description #{testCase.description}
+    exceptionMessage
+    status #{testCase.status}
+    timeTaken 25
+    
+doctype xml
+DSTAutomationReport(xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="buildreport.xsd")
+ buildNumber #{Build}
+ branchName #{BranchName}
+ productVersion #{Version}
+ executionMode
+ operatingSystem
+ databaseType #{DatabaseType}
+ databaseVersion
+ buildURL
+ moduleName #{ModuleName}
+ buildDate #{BuildDate}
+ Installation_Status
+ testSuite
+  for testCase in testCases
+   +createTestCase(testCase)
+ name oie
+ totalTestCaseCount 2
+ passedTestCaseCount 1
+ failedTestCaseCount 1
