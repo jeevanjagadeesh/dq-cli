@@ -2,7 +2,7 @@ mixin createTestCase(testCase)
   TestCase
     Name #{testCase.Name}
     description #{testCase.description}
-    exceptionMessage
+    exceptionMessage #{testCase.exceptionMessage}
     status #{testCase.status}
     timeTaken 25
     
@@ -22,7 +22,7 @@ DSTAutomationReport(xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:no
  testSuite
   for testCase in testCases
    +createTestCase(testCase)
- name oie
+ name #{pluginName}
  totalTestCaseCount #{totalTestCaseCount}
  passedTestCaseCount #{passedTestCaseCount}
  failedTestCaseCount #{failedTestCaseCount}
