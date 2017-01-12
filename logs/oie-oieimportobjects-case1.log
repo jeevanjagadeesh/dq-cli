@@ -1,0 +1,72 @@
+INFO:
+[rtm]
+Execution completed successfully.
+INFO:
+List of objects imported:
+Type,Name,Source Project,Target Project,Source Path,Target Path,Resolution,Renamed To
+Mapping,m_dq,CLU_PROJECT,CLU_PROJECT,/,/,,
+Flat File Data Object,ALL_SOURCE_DQ,CLU_PROJECT,CLU_PROJECT,/,/,,
+Reference Table,CC_RTM,CLU_PROJECT,CLU_PROJECT,/,/,,
+Total number of objects imported is [3].
+INFO:
+[Import Before Copy Tags Job]
+Execution completed successfully.
+INFO:
+[Multi-Instance Contribution Job]
+Execution completed successfully.
+INFO:
+[Import Data Object Job]
+Data Model Mappings resolution completed.
+INFO:
+[Import Before Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[SQL Endpoint Import Job]
+Data Model Mappings resolution completed.
+INFO:
+[Import Before Copy Matcher Transformation Job]
+Execution completed successfully.
+INFO:
+[Import Before Copy EDR Job]
+Non interactive connection resolution completed.
+INFO:
+[Import After Copy Hadoop Connection Job]
+Execution completed successfully.
+INFO:
+[Import Post Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[Import Post Copy Profile Time Update]
+Execution completed successfully.
+INFO:
+[EDR Import Job]
+Connections rebinding was successful.
+List of connections binding after import:
+Source Connection, Target Connection
+STAGE,STAGE
+
+INFO:
+[Import Post Copy Content]
+Execution completed successfully.
+INFO:
+[Import After Commit Tags Job]
+Execution completed successfully.
+INFO:
+[Import After Commit Hadoop Connection Job]
+Execution completed successfully.
+INFO:
+[Import After Commit AppSDK Job]
+Execution completed successfully.
+INFO:
+[Import Post Commit Content ]
+Execution completed successfully.
+Jan 06, 2017 12:28:36 PM com.informatica.imf.io.impl.XMLDeserializerImpl <init>
+WARNING: *** Disabling XML Schema validation
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  call C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat oie exportObjects -dn Domain_70 -un Administrator -pd Administrator -sdn Native -rs MRS_70 -pn CLU_PROJECT -fp "C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieexportobjects_m.xml" -ow true -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieexportobjects_m.zip"" -cp "C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieimportobjects_ctl.xml"  ===
+
+Execution time: 1.832 s

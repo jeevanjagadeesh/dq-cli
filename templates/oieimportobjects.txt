@@ -1,2 +1,1 @@
-
-call <<INFACMD_PATH>><<infacmd_type>> oie importObjects -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -rs <<RepositoryService>> -tp <<TargetProject>> -sp <<SourceProject>> -fp <<ImportFilePath>> -oo "<<OtherOptions>>" -cr <<ConflictResolution>> >> <<LogFileName>>
+ptime call <<INFACMD_PATH>><<infacmd_type>> oie importObjects -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -rs <<RepositoryService>> -tp <<TargetProject>> -sp <<SourceProject>> -fp <<ImportFilePath>> -oo "<<OtherOptions>>" -cr <<ConflictResolution>> >  <<cli_project_home_path>>logs\<<TestCaseID>>.log
