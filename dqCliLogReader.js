@@ -66,11 +66,12 @@ function main() {
         if (elementOfArray.ExecuteOption !== 'Skip') {
           var logName = path.join(baseDir, 'logs', elementOfArray.TestCaseID + '.log');
           var testCase = {};
-          searchLog(logName, function(err, status, failureMsg) {
+          searchLog(logName, function(err, status, timeTaken, failureMsg) {
             if (!err) {
               testCase.Name = elementOfArray.TestCaseID;
               testCase.status = status;
               testCase.exceptionMessage = failureMsg;
+              testCase.timeTaken = timeTaken;
               testCases.push(testCase);
             }
             callback2(err);
@@ -110,12 +111,16 @@ function searchLog(filename, cb) {
   //var success, failure;
   // grep is better???
   //console.log(filename);
-  fs.readFile(filename, function(err, data) {
+  fs.readFile(filename, "utf-8", function(err, data) {
     if (err) {
       return cb(err);
     }
+    var timeIndex = data.indexOf(logPatternConfig.ExecutionTime);
+    // its very basic and error prone, change to use regex
+    var timeTaken = timeIndex ? data.substring(timeIndex+16, timeIndex+27) : '0 S';
+    //console.log(timeTaken);
     if (data.indexOf(logPatternConfig.success) > -1) {
-      return cb(err, 'Passed');
+      return cb(err, 'Passed', timeTaken);
     } else {
       var failMsg;
       _.forEach(logPatternConfig.failure, function(failureMsg) {
@@ -125,7 +130,7 @@ function searchLog(filename, cb) {
           return false;
         }
       });
-      return cb(err, 'Failed', failMsg);
+      return cb(err, 'Failed', timeTaken, failMsg);
     }
   });
 }
