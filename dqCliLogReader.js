@@ -92,6 +92,8 @@ function main() {
       }
       jsonData.testCases = testCases;
       var countBy = _.countBy(testCases, 'status');
+      var testSuiteTimeTaken = _.sum(_.map(testCases, 'timeTaken'));
+      jsonData.testSuiteTimeTaken = testSuiteTimeTaken;
       jsonData.passedTestCaseCount = countBy.Passed;
       jsonData.failedTestCaseCount = countBy.Failed;
       jsonData.totalTestCaseCount = jsonData.testCases.length;
@@ -115,10 +117,9 @@ function searchLog(filename, cb) {
     if (err) {
       return cb(err);
     }
-    var timeIndex = data.indexOf(logPatternConfig.ExecutionTime);
-    // its very basic and error prone, change to use regex
-    var timeTaken = timeIndex ? data.substring(timeIndex+16, timeIndex+27) : '0 S';
-    //console.log(timeTaken);
+
+    var timeTaken = data.match(logPatternConfig.ExecutionTime);
+	timeTaken =  timeTaken ? parseFloat(timeTaken[1]) : 0;
     if (data.indexOf(logPatternConfig.success) > -1) {
       return cb(err, 'Passed', timeTaken);
     } else {

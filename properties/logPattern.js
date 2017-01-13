@@ -7,6 +7,7 @@ module.exports = function(config) {
         '[ICMD_10033] Command [importObjects] failed with error [[OIECMD_10007] Error occurred during import function. See previous error.]',
     ],
     logpath: '/logs/',
-    ExecutionTime: 'Execution time:'
+    // Use Regex - get upto 3 decimal val
+    ExecutionTime: /Execution time: (\d+(\.\d{1,3})?)/
   }
 };

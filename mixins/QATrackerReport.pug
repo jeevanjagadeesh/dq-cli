@@ -2,9 +2,10 @@ mixin createTestCase(testCase)
   TestCase
     Name #{testCase.Name}
     description #{testCase.description}
-    exceptionMessage #{testCase.exceptionMessage}
     status #{testCase.status}
     timeTaken #{testCase.timeTaken}
+    exceptionMessage #{testCase.exceptionMessage}
+    runLog #{testCase.runLog}
     
 doctype xml
 DSTAutomationReport(xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="buildreport.xsd")
@@ -20,9 +21,11 @@ DSTAutomationReport(xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:no
  buildDate #{BuildDate}
  Installation_Status
  testSuite
+  name #{pluginName}
+  totalTestCaseCount #{totalTestCaseCount}
+  passedTestCaseCount #{passedTestCaseCount}
+  failedTestCaseCount #{failedTestCaseCount}
+  skippedTestCaseCount 0
+  timeTaken #{testSuiteTimeTaken}
   for testCase in testCases
    +createTestCase(testCase)
- name #{pluginName}
- totalTestCaseCount #{totalTestCaseCount}
- passedTestCaseCount #{passedTestCaseCount}
- failedTestCaseCount #{failedTestCaseCount}
