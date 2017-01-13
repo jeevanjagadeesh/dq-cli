@@ -60,7 +60,13 @@ Execution completed successfully.
 INFO:
 [Import Post Commit Content ]
 Execution completed successfully.
+Jan 06, 2017 12:28:36 PM com.informatica.imf.io.impl.XMLDeserializerImpl <init>
+WARNING: *** Disabling XML Schema validation
 Command ran successfully.
-ERROR(s):
-cvc-elt.1: Cannot find the declaration of element 'importParams'.
-[ICMD_10033] Command [exportObjects] failed with error [[OIECMD_10006] Error occurred during export function. See previous error.].
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  call C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat oie exportObjects -dn Domain_70 -un Administrator -pd Administrator -sdn Native -rs MRS_70 -pn CLU_PROJECT -fp "C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieexportobjects_m.xml" -ow true -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieexportobjects_m.zip"" -cp "C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieimportobjects_ctl.xml"  ===
+
+Execution time: 1.832 s

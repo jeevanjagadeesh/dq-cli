@@ -1,0 +1,43 @@
+INFO:
+List of objects exported:
+Type,Name,Project,Path
+Relational Data Object,CLNS_AUTOMATION_ISSUE,CLU_PROJECT,/oie_export
+Application,wf_Presales_Cluster_Find,CLU_PROJECT,/oie_export
+Relational Data Object,CLNS_AUTOMATION,CLU_PROJECT,/oie_export
+Mapping,m_Presales_Cleanse,CLU_PROJECT,/oie_export
+Relational Data Object,kk_Cluster_Find,CLU_PROJECT,/oie_export
+Workflow,wf_Presales_Cluster_Find,CLU_PROJECT,/oie_export
+Workflow,wf_Presales_Cleanse,CLU_PROJECT,/oie_export
+Flat File Data Object,Presales_Cleanse,CLU_PROJECT,/oie_export
+Relational Data Object,CLUS_AUTO_NEW,CLU_PROJECT,/oie_export
+Mapping,m_Presales_Cluster,CLU_PROJECT,/oie_export
+Flat File Data Object,Presales_Cluster1,CLU_PROJECT,/oie_export
+Flat File Data Object,Presales_Cluster,CLU_PROJECT,/oie_export
+OracleNativeConnectInfo,dqtx_src,
+Folder,oie_export,CLU_PROJECT,/
+Project,CLU_PROJECT,
+OracleNativeConnectInfo,STAGE,
+Total number of objects exported is [16].
+INFO:
+[Export Tags Job]
+Execution completed successfully.
+INFO:
+[Export Before Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[Export EDR Cleanse Job]
+Execution completed successfully.
+INFO:
+[Export Remote Object Permission Verification Job]
+Execution completed successfully.
+INFO:
+[Export Post Commit Data Domains Rule]
+Execution completed successfully.
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  call C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat oie exportObjects -dn Domain_70 -un Administrator -pd Administrator -sdn Native -rs MRS_70 -pn CLU_PROJECT -fp "C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieexportobjects_m.xml" -ow true -oo "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieexportobjects_m.zip"" -cp "C:\Projects\cli_project\dq-cli-log_validator\cli_results\output\oieimportobjects_ctl.xml"  ===
+
+Execution time: 6.842 s

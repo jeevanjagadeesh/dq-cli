@@ -55,7 +55,7 @@ function main() {
   var plugin = cParams.src;
   var xlspath = path.join(baseDir, 'input', plugin.concat('.xls'));
   var uploadToQaTrackExec = path.join(baseDir, 'QATrackImport', 'importxml.bat');
-  var qatrackimportxml = path.join(baseDir, 'QATrackImport', 'QATrackerReport.xml');
+  var qatrackimportxml = path.join(baseDir, 'uploadToReport', "QATrackerReport-" + plugin + '.xml');
   var qatrackurl = 'http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet'  
   
   //log.info(' Windows? : ' + os.platform().includes('win'));
