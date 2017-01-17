@@ -136,7 +136,7 @@ function main() {
       // File creation complete, invoke the script
       log.info(infacmd_op_file, ' :infacmd_op_file');
 
-      childProcess.exec(infacmd_op_file, function(err, stdout, stderr) {
+      childProcess.exec(infacmd_op_file, {timeout:config.ExecutionTimeout}, function(err, stdout, stderr) {
         if (err) {
           log.error({ err: err }, 'Error in executing file');
           // Uncomment the below line
