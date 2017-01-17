@@ -7,6 +7,7 @@ var mv = require('mv');
 var moment = require('moment');
 var os = require('os');
 var childProcess = require('child_process');
+var request = require('request');
 
 var log = logger.createLogger({
   name: "dq_cli"
@@ -56,9 +57,6 @@ function main() {
   log.info(' OS Type: ' + os.type() + ' & OS Platform: ' + os.platform() + ' & OS arch: ' + os.arch());
   var plugin = cParams.src;
   var xlspath = path.join(baseDir, 'input', plugin.concat('.xlsx'));
-  var uploadToQaTrackExec = path.join(baseDir, 'QATrackImport', 'importxml.bat');
-  var qatrackimportxml = path.join(baseDir, 'uploadToReport', "QATrackerReport-" + plugin + '.xml');
-  var qatrackurl = 'http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet'
 
   //log.info(' Windows? : ' + os.platform().includes('win'));
   if (os.platform().toLowerCase().includes('win')) {
@@ -143,26 +141,31 @@ function main() {
           //process.exit(1);
         }
         log.info({ stdout: stdout, stderr: stderr }, ' Execution done');
-        dqCliLogReader.generateExecutionXml(xlsData, plugin, function(err, status) {
+        dqCliLogReader.generateExecutionXml(xlsData, plugin, function(err, trackerXml) {
           if (err) {
             log.error({err: err }, 'Error in generating Xml');
             // must exit
             log.info('ERROR Exiting');
             process.exit(1);
           }
-          // XML generated invovke the java code with xml
-          log.info(uploadToQaTrackExec, ' :uploadToQaTrackExec');
-          log.info(qatrackurl, ' :qatrackurl');
-          log.info(qatrackimportxml, ' :qatrackimportxml');
-          childProcess.exec(uploadToQaTrackExec + ' ' + qatrackurl + ' ' + qatrackimportxml, function(err, stdout, stderr) {
-            if (err) {
-              log.error({ err: err }, 'Error in executing file');
-              process.exit(1);
-            }
-            log.info({ stdout: stdout, stderr: stderr }, ' Execution of QA Track Upload done');
-            log.info("Execution Complete!!! Exiting");
-            process.exit(0);
-          });
+          // XML generated invoke the service
+          log.info(config.qatrackurl, ' :qatrackurl');
+          var req = request.post({
+		    url: config.qatrackurl,
+		    headers:{ 'Content-Type': 'multipart/form-data' }
+		  }, function(error, response, body) {
+		    if (error) {
+		      console.log(error);
+		      process.exit(1);
+		    }
+		      //console.log('statusCode === ' + response.statusCode);
+		      console.log('response body == ' + body);
+		      process.exit(0);
+		  });
+		   //req.pipe(process.stdout);
+		   var form = req.form();
+		   form.append('xml', trackerXml);
+           form.append('module','ATBB');
         });
       });
     });
