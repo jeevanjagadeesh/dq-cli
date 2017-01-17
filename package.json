@@ -12,6 +12,7 @@
     "npm": "^3.10.9",
     "pug": "^2.0.0-beta6",
     "replace-in-file": "^2.0.3",
+    "request": "^2.79.0",
     "xlsx": "^0.8.0"
   },
   "devDependencies": {},
