@@ -70,7 +70,7 @@ dqCliLogReader.prototype.generateExecutionXml = function(result, plugin, cb) {
         return cb(err);
       }
       console.log('File written succesfully!!!');
-      cb(null, 'File written succesfully!!!');
+      cb(null, trackerXml);
     });
   });
 }

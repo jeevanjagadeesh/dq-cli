@@ -17,5 +17,6 @@
 "email_to":"rajesh@informatica.com",
 "email_cc":"rajesh@informatica.com",
 "email_bcc":"rajesh@informatica.com",
-"ExecutionTimeout" : 1800000
+"ExecutionTimeout" : 1800000,
+"qatrackurl" : "http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet"
 }
