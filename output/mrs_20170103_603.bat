@@ -1,1 +1,0 @@
-C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat mrs createproject -dn Domain_46 -un Administrator -pd Administrator -sdn Native -sn MRS_46 -pn CLU_PROJECT_16 >> C:\Projects\dq-cli\logs\mrs.log

@@ -1,3 +1,4 @@
+//Load all required libraries
 var logger = require('bunyan');
 var path = require("path");
 var async = require('async');
@@ -9,22 +10,44 @@ var os = require('os');
 var childProcess = require('child_process');
 var request = require('request');
 
+//Create logger
 var log = logger.createLogger({
   name: "dq_cli"
 });
 log.level('debug');
 
+//Initialze excel to json convertors
 var excel = require('./lib/excel2Json.js');
 var config = require('./properties/config.json');
 var excel2Json = new excel(log);
+
+//Load log reader
 var dqLog = require('./dqCliLogReader.js');
 var dqCliLogReader = new dqLog(log);
+
 var baseDir = __dirname;
 
 var DEFAULT_PARAMS = {
   src: "oie"
 };
 
+//Initialize excel input directories
+var plugin_input_dir = path.join(baseDir, 'input','testSuite');
+var plugin_input_extn = '.xlsx';
+
+//Initialize log files
+var infacmd_op_file = path.join(baseDir, 'output','executables');
+var infacmd_log_file = path.join(baseDir, 'output','cli_logs');
+var infacmd_op_file_dir = path.join(baseDir, 'output','executables');
+var infacmd_log_file_dir = path.join(baseDir, 'output','cli_logs');
+
+//Initialize plugin template directories
+var templates_dir = path.join(baseDir, 'input','templates');
+var template_extn = '.txt';
+	
+//Initialize execution time tracker
+var timeTracker = '';
+	
 /**
  * Parses the parameters:
  * @param {String[]} consoleParams
@@ -56,41 +79,43 @@ function main() {
   log.info(' Current timestamp: ' + timeid);
   log.info(' OS Type: ' + os.type() + ' & OS Platform: ' + os.platform() + ' & OS arch: ' + os.arch());
   var plugin = cParams.src;
-  var xlspath = path.join(baseDir, 'input', plugin.concat('.xlsx'));
+
 
   //log.info(' Windows? : ' + os.platform().includes('win'));
   if (os.platform().toLowerCase().includes('win')) {
-    var infacmd_op_file = path.join(baseDir, 'output', plugin.concat('.bat'));
-    var infacmd_log_file = path.join(baseDir, 'logs', plugin.concat('.log'));
-    var infacmd_type = 'infacmd.bat';
+    infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.bat'));
+    infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
+	//Initialize variables to take backup files
+  var backup_infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('_').concat(timeid).concat('.bat'));  
+  var infacmd_type = 'infacmd.bat';	
+  timeTracker = 'ptime';
   } else {
-    var infacmd_op_file = path.join(baseDir, 'output', plugin.concat('.sh'));
-    var infacmd_type = './infacmd.sh';
+	infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.sh'));
+    infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
+	//Initialize variables to take backup files
+  var backup_infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('_').concat(timeid).concat('.sh'));
+  
+  var infacmd_type = './infacmd.sh';
+  timeTracker = '/usr/bin/time -f "Execution time: %e s"'
   }
-  //Take backup of output file if already exists
-  var backup_infacmd_op_file = path.join(baseDir, 'output', plugin.concat('_').concat(timeid).concat('.bat'));
-  var backup_infacmd_log_file = path.join(baseDir, 'logs', plugin.concat('_').concat(timeid).concat('.log'));
+  
   var isFileExist = fs.existsSync(infacmd_op_file);
   log.info(' isFileExist: ' + isFileExist);
-  var isLogFileExist = fs.existsSync(infacmd_log_file);
-  log.info(' isLogFileExist: ' + isLogFileExist);
-
+log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file + ' : ' + backup_infacmd_op_file);
   if (isFileExist) {
+  log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file + ' : ' + backup_infacmd_op_file);
     mv(infacmd_op_file, backup_infacmd_op_file, function(err) {});
   }
 
-  if (isLogFileExist) {
-    mv(infacmd_log_file, backup_infacmd_log_file, function(err) {});
-  }
-
-  var workbook = excel2Json.readExcelFile(xlspath);
+  var inputFile = path.join(plugin_input_dir, plugin.concat(plugin_input_extn));
+  var workbook = excel2Json.readExcelFile(inputFile); 
   var xlsData;
   excel2Json.to_json(workbook, function(result) {
     xlsData = result;
     //log.info({result: result}, 'result of excel read');
     async.forEachOf(result, function(value, key, callback) {
-      var fileName = key + '.txt';
-      fs.readFile(path.join(baseDir, 'templates', fileName), 'utf8', function(err, template) {
+      var fileName = key + template_extn;
+      fs.readFile(path.join(templates_dir, fileName), 'utf8', function(err, template) {
         if (err) {
           log.info({ fileName: fileName }, 'No file');
           return callback('No file -- ' + fileName);
@@ -99,6 +124,15 @@ function main() {
         async.forEach(value, function(elementOfArray, callback) {
           var data = template;
           if (elementOfArray.ExecuteOption !== 'Skip') {
+		  
+//		  var logName = path.join(infacmd_log_file_dir, elementOfArray.TestCaseID + '.log');
+	//	  var backupLogName = path.join(infacmd_log_file_dir, elementOfArray.TestCaseID.concat('_').concat(timeid) + '.log');		  
+		//  var isLogFileExist = fs.existsSync(logName);
+		  //  if (isLogFileExist) {
+            //    log.info(' infacmd_log_file, backup_infacmd_log_file: exists- ' + infacmd_log_file + ' : ' + backup_infacmd_log_file);
+            //    mv(logName, backupLogName, function(err) {});
+            // }
+		  
             // replace xls values
             _.forEach(elementOfArray, function(value, key) {
               data = stringReplace(data, '<<' + key + '>>', value);
@@ -109,9 +143,10 @@ function main() {
               data = stringReplace(data, '<<' + key + '>>', value);
             });
 
-            // replace infacmd_type attributes in templates
+            // replace global attributes in templates
+			data = stringReplace(data, '<<timeTracker>>', timeTracker);
             data = stringReplace(data, '<<infacmd_type>>', infacmd_type);
-            data = stringReplace(data, '<<LogFileName>>', infacmd_log_file);
+            data = stringReplace(data, '<<LogFileName>>', infacmd_log_file_dir + path.sep);
             //log.info({data: data}, 'command output');
             writeToExecutable(infacmd_op_file, data);
           }
