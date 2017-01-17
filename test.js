@@ -5,14 +5,18 @@ var body1 = '<?xml version="1.0" encoding="utf-8" ?><DSTAutomationReport xmlns:x
 
 var xmlData = path.join(__dirname, 'uploadToReport', '/QATrackerReport-oie.xml');
 console.log(xmlData);
-var formData = {
+/*var formData = {
   module: 'ATBB',
-  xml: fs.createReadStream(xmlData),
-};
+  xml: fs.readFileSync(xmlData, {encoding:'utf8'}),
+};*/
 //console.log(formData);
-request.post({
+var length = fs.statSync(xmlData).size;
+var req = request.post({
   url: 'http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet',
-  formData: formData
+  headers:{
+            'content-length':length
+        }
+  //formData: formData
 }, function(error, response, body) {
   if (error) {
     console.log(error);
@@ -24,3 +28,8 @@ request.post({
     process.exit(0);
   //}
 });
+ req.pipe(process.stdout);
+ var form = req.form();
+ form.append('xml',fs.readFileSync(xmlData));
+ form.append('module','ATBB');
+//fs.createReadStream(xmlData).pipe(req).pipe(process.stdout);
