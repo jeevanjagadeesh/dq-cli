@@ -16,5 +16,6 @@
 "BuildDate":"16-August-2011",
 "email_to":"rajesh@informatica.com",
 "email_cc":"rajesh@informatica.com",
-"email_bcc":"rajesh@informatica.com"
+"email_bcc":"rajesh@informatica.com",
+"ExecutionTimeout" : 1800000
 }
