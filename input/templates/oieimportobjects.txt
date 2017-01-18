@@ -1,0 +1,2 @@
+<<cli_project_home_path>><<timeTracker>> <<INFACMD_PATH>><<infacmd_type>> oie importObjects -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -rs <<RepositoryService>> -tp <<TargetProject>> -sp <<SourceProject>> -fp <<ImportFilePath>> -oo "<<OtherOptions>>" -cr <<ConflictResolution>> >  <<LogFileName>><<TestCaseID>>.log
+
