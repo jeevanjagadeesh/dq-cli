@@ -10,7 +10,7 @@
 "Build":"77",
 "RepositoryService":"MRS_77",
 "DatabaseType":"ORACLE",
-"cli_project_home_path":"C:\\Projects\\dq-cli\\",
+"cli_project_home_path":"C:\\Projects\\sendEmail\\",
 "ModuleName":"DQT",
 "BranchName":"ML",
 "BuildDate":"16-January-2017",
@@ -18,7 +18,7 @@
 "email_cc":"rajesh@informatica.com",
 "email_bcc":"rajesh@informatica.com",
 "email_from": "no-reply@informatica.com",
-"emailHost": "smtp3.informatica.com",
+"emailHost": "in23ex01.informatica.com",
 "ExecutionTimeout" : 1800000,
 "qatrackurl" : "http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet",
 "qaHomeUrl" : "http://psrlxpamqa1:8080"

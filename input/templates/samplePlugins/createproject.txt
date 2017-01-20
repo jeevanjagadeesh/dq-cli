@@ -1,1 +1,1 @@
-<<INFACMD_PATH>><<infacmd_type>> mrs createproject -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -sdn <<SecurityDomain>> -sn <<ServiceName>> -pn <<ProjectName>> >> <<LogFileName>>
+<<cli_prefix>> mrs createproject -DomainName <<DomainName>> -UserName <<UserName>> -Password <<Password>> -SecurityDomain <<SecurityDomain>> -ServiceName <<ServiceName>> -ProjectName <<ProjectName>> <<LogFileName>>

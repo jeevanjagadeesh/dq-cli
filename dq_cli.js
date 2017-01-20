@@ -113,41 +113,80 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
   var xlsData;
   excel2Json.to_json(workbook, function(result) {
     xlsData = result;
-    //log.info({result: result}, 'result of excel read');
+    log.info({result: result}, 'result of excel read');
+    //process.exit(0);
     async.forEachOf(result, function(value, key, callback) {
+		console.log('key == '+key);
+
       var fileName = key + template_extn;
-      fs.readFile(path.join(templates_dir, fileName), 'utf8', function(err, template) {
-        if (err) {
-          log.info({ fileName: fileName }, 'No file');
-          return callback('No file -- ' + fileName);
-        }
-        callback(err, template);
+      var filePath = path.join(templates_dir, fileName);
+      if(!fs.existsSync(filePath)) {
+	    console.log("File not found");
+	    return callback('File Not Found');
+      }
+      var template = fs.readFileSync(filePath, 'utf8');
+		  if (template) {
+		  console.log('fileName == '+fileName);
+
         async.forEach(value, function(elementOfArray, callback) {
           var data = template;
+		  var cli_prefix = '';
+		  var cli_project_home_path='';
+		  
           if (elementOfArray.ExecuteOption !== 'Skip') {
+		  
+            // replace command template arguments with program variables
+			//data = stringReplace(data, '<<timeTracker>>', timeTracker);
+           // data = stringReplace(data, '<<infacmd_type>>', infacmd_type);           
 
-//		  var logName = path.join(infacmd_log_file_dir, elementOfArray.TestCaseID + '.log');
-	//	  var backupLogName = path.join(infacmd_log_file_dir, elementOfArray.TestCaseID.concat('_').concat(timeid) + '.log');
-		//  var isLogFileExist = fs.existsSync(logName);
-		  //  if (isLogFileExist) {
-            //    log.info(' infacmd_log_file, backup_infacmd_log_file: exists- ' + infacmd_log_file + ' : ' + backup_infacmd_log_file);
-            //    mv(logName, backupLogName, function(err) {});
-            // }
-
-            // replace xls values
-            _.forEach(elementOfArray, function(value, key) {
-              data = stringReplace(data, '<<' + key + '>>', value);
-            });
-
-            // replace config values
+		    // replace command template arguments with config.json properties
             _.forEach(config, function(value, key) {
               data = stringReplace(data, '<<' + key + '>>', value);
+			  
+			  if(key == 'cli_project_home_path'){
+			    cli_project_home_path=value;			  
+			  }		
+              if(key == 'INFACMD_PATH'){
+			    INFACMD_PATH=value;			  
+			  }				  
             });
+            // replace cli_prefix essential for command execution
+    		cli_prefix = cli_project_home_path + timeTracker + ' ' + INFACMD_PATH + infacmd_type+' ';
+			data = stringReplace(data, '<<cli_prefix>>', cli_prefix+' ');
+			
+			// replace command template arguments with TestSuite Inputs
+            _.forEach(elementOfArray, function(value, key) {
+			console.log('key : ' + key + ' and value : ' + value);
+			
+			//Replace <<LogFileName>>		
+			if(key == 'TestCaseID'){
+			
+		   var logFileName=infacmd_log_file_dir + path.sep + value+'.log';
+		   var backup_logFileName = infacmd_log_file_dir + path.sep + value+'_'+timeid+'.log';
 
-            // replace global attributes in templates
-			data = stringReplace(data, '<<timeTracker>>', timeTracker);
-            data = stringReplace(data, '<<infacmd_type>>', infacmd_type);
-            data = stringReplace(data, '<<LogFileName>>', infacmd_log_file_dir + path.sep);
+		   		//Take backup of Log file				
+				var isLogFileExist = fs.existsSync(logFileName);
+               log.info(' isLogFileExist: ' + isLogFileExist);
+				if (isLogFileExist) {
+					log.info(' logFileName, backup_logFileName: - ' + infacmd_op_file + ' : ' + backup_infacmd_op_file);
+					mv(logFileName, backup_logFileName, function(err) {});
+				}	
+		   
+			data = stringReplace(data, '<<LogFileName>>', ' > ' + logFileName);		   
+							
+			}  
+		
+		    //Skip argument option from the command, if value found to be {N/A,n/a,na or NA}
+			if(value.toUpperCase() == 'N/A' || value.toUpperCase() == 'NA' || value.toUpperCase() == 'NULL'){
+                console.log('This option is skipped  : '+ '-' + key + ' '+'<<' + key + '>>' +' for command \n' + data);
+				   data = stringReplace(data, '-' + key + ' ' +'<<'+ key + '>>','');
+			}		
+			
+              data = stringReplace(data, '<<' + key + '>>', value);
+		
+ 
+            });
+			
             //log.info({data: data}, 'command output');
             writeToExecutable(infacmd_op_file, data);
           }
@@ -156,16 +195,15 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
           if (err) {
             log.error({ err: err }, 'Error from async array looping');
           }
-          // for every worksheet complete, add line break
+          // for every worksheet completed- add line break
           writeToExecutable(infacmd_op_file, "\n");
           log.info("processing all elements completed");
         });
-      });
+      };
     }, function(err) {
       if (err) {
         log.error({ err: err }, 'Error JSON array looping');
-        // Uncomment the below line
-        //process.exit(1);
+       // process.exit(1);
       }
       // File creation complete, invoke the script
       log.info(infacmd_op_file, ' :infacmd_op_file');
@@ -173,7 +211,6 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
       childProcess.exec(infacmd_op_file, {timeout:config.ExecutionTimeout}, function(err, stdout, stderr) {
         if (err) {
           log.error({ err: err }, 'Error in executing file');
-          // Uncomment the below line
           //process.exit(1);
         }
         log.info({ stdout: stdout, stderr: stderr }, ' Execution done');
@@ -192,10 +229,11 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 		  }, function(error, response, body) {
 		    if (error) {
 		      console.log(error);
-		      process.exit(1);
+		  //    process.exit(1);
 		    }
 		      //console.log('statusCode === ' + response.statusCode);
 		      console.log('response body == ' + body);
+		   //   var test ='SUCCESS! The Build Report has been added - .<a href="/qatrack/testSuite.jsp?buildReportID=U:1KMX5tzdEea_PPHWXG1qbQ">DQT_ ML_ 10.2.0_ _ ORACLE_ _ importedFromXML_ 1484675593771_#_0_#_0_#_0</a><br>';
 		      var emailContent = sendEmailObj.composeMail(body);
 		      sendEmailObj.sendMail(emailContent, function(err, msg) {
                 log.info({err: err, msg:msg}, 'Send Email ***');

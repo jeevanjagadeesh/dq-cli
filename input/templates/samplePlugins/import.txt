@@ -1,2 +1,0 @@
-
-<<INFACMD_PATH>><<infacmd_type>> rtm import -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -sdn <<SecurityDomain>> -rs <<RepositoryService>> -cp <<CodePage>> -it <<ConflictResolution>> -f "<<Folder>>" -pf <<ProjectFolder>> >> <<LogFileName>>
