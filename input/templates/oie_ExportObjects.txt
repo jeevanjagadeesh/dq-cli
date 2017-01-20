@@ -1,0 +1,2 @@
+<<cli_prefix>> oie exportObjects -DomainName <<DomainName>> -UserName <<UserName>> -Password <<Password>> -SecurityDomain <<SecurityDomain>> -RepositoryService <<RepositoryService>> -ProjectName <<ProjectName>> -ExportFilePath "<<ExportFilePath>>" -OverwriteExportFile <<OverwriteExportFile>> -OtherOptions "<<OtherOptions>>" -ControlFilePath "<<ControlFilePath>>" <<LogFileName>>
+

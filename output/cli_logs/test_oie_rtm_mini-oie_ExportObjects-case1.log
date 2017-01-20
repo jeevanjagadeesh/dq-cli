@@ -1,0 +1,10 @@
+ERROR(s):
+cvc-elt.1: Cannot find the declaration of element 'importParams'.
+[ICMD_10033] Command [exportObjects] failed with error [[OIECMD_10006] Error occurred during export function. See previous error.].
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   oie exportObjects -DomainName Domain_77 -UserName Administrator -Password Administrator -SecurityDomain Native -RepositoryService MRS_77 -ProjectName CLU_PROJECT_MINI -ExportFilePath "C:\Projects\sendEmail\output\dq_artifacts\oieexportobjects_m.xml" -OverwriteExportFile true -OtherOptions "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\sendEmail\output\dq_artifacts\oieexportobjects_m.zip"" -ControlFilePath "C:\Projects\sendEmail\input\dq_artifacts\oieimportobjects_ctl.xml"   ===
+
+Execution time: 10.141 s
