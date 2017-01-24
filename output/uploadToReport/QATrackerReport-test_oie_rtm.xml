@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<DSTAutomationReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="buildreport.xsd">
+  <buildNumber>89</buildNumber>
+  <branchName>ML</branchName>
+  <productVersion>10.2.0</productVersion>
+  <executionMode></executionMode>
+  <operatingSystem></operatingSystem>
+  <databaseType>ORACLE</databaseType>
+  <databaseVersion></databaseVersion>
+  <buildURL></buildURL>
+  <moduleName>DQT</moduleName>
+  <buildDate>16-January-2017</buildDate>
+  <Installation_Status></Installation_Status>
+  <testSuite>
+    <name>test_oie_rtm</name>
+    <totalTestCaseCount>1</totalTestCaseCount>
+    <passedTestCaseCount></passedTestCaseCount>
+    <failedTestCaseCount>1</failedTestCaseCount>
+    <skippedTestCaseCount>0</skippedTestCaseCount>
+    <timeTaken>12.495</timeTaken>
+    <TestCase>
+      <Name>test_oie_rtm-dis_listapplications-case1</Name>
+      <description></description>
+      <status>Failed</status>
+      <timeTaken>12.495</timeTaken>
+      <exceptionMessage></exceptionMessage>
+      <runLog></runLog>
+    </TestCase>
+  </testSuite>
+</DSTAutomationReport>

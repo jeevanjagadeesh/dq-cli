@@ -1,92 +1,54 @@
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"params":{"src":"test_oie_rtm_mini"},"msg":"Using following params","time":"2017-01-20T15:42:12.217Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":20,"msg":" ******** Starting ******** ","time":"2017-01-20T15:42:12.219Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" Current timestamp: 20170120_912","time":"2017-01-20T15:42:12.222Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" OS Type: Windows_NT & OS Platform: win32 & OS arch: x64","time":"2017-01-20T15:42:12.222Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" isFileExist: true","time":"2017-01-20T15:42:12.222Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" infacmd_op_file, backup_infacmd_op_file: exists- C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat : C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini_20170120_912.bat","time":"2017-01-20T15:42:12.222Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" infacmd_op_file, backup_infacmd_op_file: exists- C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat : C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini_20170120_912.bat","time":"2017-01-20T15:42:12.223Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" ******** Reading EXCEL file ******** ","time":"2017-01-20T15:42:12.223Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"result":{"CreateProject":[{"CreateProject":"Run","TestCaseID":"test_oie_rtm_mini-CreateProject-case1","ServiceName":"MRS_77","ProjectName":"CLU_PROJECT_MINI"}],"oie_ImportObjects":[{"ImportObjects":"Run","TestCaseID":"test_oie_rtm_mini-oie_ImportObjects-case1","RepositoryService":"MRS_77","TargetProject":"CLU_PROJECT_MINI","TargetFolder":"oie_import","ImportFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.xml","SourceProject":"CLU_PROJECT_MINI","SkipCRC":"TRUE","ConflictResolution":"replace","ControlFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml","SkipCnxValidation":"FALSE","OtherOptions":"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.zip\""}],"oie_ExportObjects":[{"ExportObjects":"Run","TestCaseID":"test_oie_rtm_mini-oie_ExportObjects-case1","RepositoryService":"MRS_77","ProjectName":"CLU_PROJECT_MINI","ExportFilePath":"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.xml","OverwriteExportFile":"true","ControlFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml","OtherOptions":"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.zip\""}],"rtm_export":[{"Export":"Run","TestCaseID":"test_oie_rtm_mini-rtm_export-case1","RepositoryService":"MRS_77","CodePage":"UTF-8","Folder":"C:\\Projects\\sendEmail\\output\\dq_artifacts","ProjectFolder":"CLU_PROJECT_MINI/RTM_EXPORT","Recursive":"TRUE","SkipDatGeneration":"FALSE"}],"rtm_import":[{"Import":"Run","TestCaseID":"test_oie_rtm_mini-rtm_import-case1","RepositoryService":"MRS_77","CodePage":"UTF-8","ConflictResolution":"replace","ImportType":"MetadataAndData","Folder":"C:\\Projects\\sendEmail\\input\\dq_artifacts","ProjectFolder":"CLU_PROJECT_MINI/RTM_IMPORT"}],"UtilsDontModify":[{"ExecuteOption":"Run"},{"ExecuteOption":"Skip"}]},"msg":"result of excel read","time":"2017-01-20T15:42:12.297Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"params":{"src":"test_oie_rtm"},"msg":"Using following params","time":"2017-01-24T14:41:25.895Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":20,"msg":" ******** Starting ******** ","time":"2017-01-24T14:41:25.897Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" Current timestamp: 20170124_811","time":"2017-01-24T14:41:25.900Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" OS Type: Windows_NT & OS Platform: win32 & OS arch: x64","time":"2017-01-24T14:41:25.900Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" isFileExist: true","time":"2017-01-24T14:41:25.900Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" infacmd_op_file, backup_infacmd_op_file: exists- C:\\Projects\\dqcli_v1\\output\\executables\\test_oie_rtm.bat : C:\\Projects\\dqcli_v1\\output\\executables\\test_oie_rtm_20170124_811.bat","time":"2017-01-24T14:41:25.900Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" infacmd_op_file, backup_infacmd_op_file: exists- C:\\Projects\\dqcli_v1\\output\\executables\\test_oie_rtm.bat : C:\\Projects\\dqcli_v1\\output\\executables\\test_oie_rtm_20170124_811.bat","time":"2017-01-24T14:41:25.900Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" ******** Reading EXCEL file ******** ","time":"2017-01-24T14:41:25.901Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"result":{"CreateProject":[{"ExecuteOption":"Skip","TestCaseID":"","ServiceName":"MRS_77","ProjectName":"CLU_PROJECT_MINI"},{"ExecuteOption":"Skip","TestCaseID":"","ServiceName":"MRS_77","ProjectName":"CLU_PROJECT_MINI"}],"oie_ImportObjects":[{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","TargetProject":"CLU_PROJECT_MINI","TargetFolder":"oie_import","ImportFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.xml","SourceProject":"CLU_PROJECT_MINI","SkipCRC":"TRUE","ConflictResolution":"replace","ControlFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml","SkipCnxValidation":"FALSE","OtherOptions":"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.zip\""},{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","TargetProject":"CLU_PROJECT_MINI","TargetFolder":"oie_import","ImportFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.xml","SourceProject":"CLU_PROJECT_MINI","SkipCRC":"TRUE","ConflictResolution":"replace","ControlFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml","SkipCnxValidation":"FALSE","OtherOptions":"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.zip\""},{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","TargetProject":"CLU_PROJECT_MINI","TargetFolder":"oie_import","ImportFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.xml","SourceProject":"CLU_PROJECT_MINI","SkipCRC":"TRUE","ConflictResolution":"replace","ControlFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml","SkipCnxValidation":"FALSE","OtherOptions":"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.zip\""}],"oie_ExportObjects":[{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","ProjectName":"CLU_PROJECT_MINI","ExportFilePath":"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.xml","OverwriteExportFile":"true","ControlFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml","OtherOptions":"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.zip\""},{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","ProjectName":"CLU_PROJECT_MINI","ExportFilePath":"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.xml","OverwriteExportFile":"true","ControlFilePath":"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml","OtherOptions":"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.zip\""}],"rtm_export":[{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","CodePage":"UTF-8","Folder":"C:\\Projects\\sendEmail\\output\\dq_artifacts","ProjectFolder":"CLU_PROJECT_MINI/RTM_EXPORT","Recursive":"TRUE","SkipDatGeneration":"FALSE"},{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","CodePage":"UTF-8","Folder":"C:\\Projects\\sendEmail\\output\\dq_artifacts","ProjectFolder":"CLU_PROJECT_MINI/RTM_EXPORT","Recursive":"TRUE","SkipDatGeneration":"FALSE"}],"rtm_import":[{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","CodePage":"UTF-8","ConflictResolution":"replace","ImportType":"MetadataAndData","Folder":"C:\\Projects\\sendEmail\\input\\dq_artifacts","ProjectFolder":"CLU_PROJECT_MINI/RTM_IMPORT"},{"ExecuteOption":"Skip","TestCaseID":"","RepositoryService":"MRS_77","CodePage":"UTF-8","ConflictResolution":"replace","ImportType":"MetadataAndData","Folder":"C:\\Projects\\sendEmail\\input\\dq_artifacts","ProjectFolder":"CLU_PROJECT_MINI/RTM_IMPORT"}],"ms_runmapping":[{"ExecuteOption":"Skip","TestCaseID":"","ServiceName":"DIS_DQSA","Application":"App_ALL_DQ","Mapping":"ALL_DQ_Mapping","Wait":"TRUE","ParameterFile":"n/a","ParameterSet":"n/a","OperatingSystemProfile":"n/a","NodeName":"n/a","OptimizationLevel":"n/a","PushdownType":"n/a","CustomProperties":"n/a","ResilienceTimeout":"n/a","CompareBaselines":"Yes","OutputFiles":"ALL_DQ_Target;Association_Target;AV_Target;Consolidation_Target;Exception_Target;IMO_Target;MATCH_Target"},{"ExecuteOption":"Skip","TestCaseID":""}],"dis_listapplications":[{"ExecuteOption":"Run","TestCaseID":"test_oie_rtm-dis_listapplications-case1","ServiceName":"DIS_DQSA"},{"ExecuteOption":"Skip","TestCaseID":""}],"UtilsDontModify":[{"ExecuteOption":"Run"},{"ExecuteOption":"Skip"}]},"msg":"result of excel read","time":"2017-01-24T14:41:25.986Z","v":0}
 key == CreateProject
 fileName == CreateProject.txt
-key : CreateProject and value : Run
-key : TestCaseID and value : test_oie_rtm_mini-CreateProject-case1
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" isLogFileExist: true","time":"2017-01-20T15:42:12.300Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" logFileName, backup_logFileName: - C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat : C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini_20170120_912.bat","time":"2017-01-20T15:42:12.300Z","v":0}
-key : ServiceName and value : MRS_77
-key : ProjectName and value : CLU_PROJECT_MINI
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:42:12.301Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:25.995Z","v":0}
 key == oie_ImportObjects
 fileName == oie_ImportObjects.txt
-key : ImportObjects and value : Run
-key : TestCaseID and value : test_oie_rtm_mini-oie_ImportObjects-case1
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" isLogFileExist: true","time":"2017-01-20T15:42:12.302Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" logFileName, backup_logFileName: - C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat : C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini_20170120_912.bat","time":"2017-01-20T15:42:12.302Z","v":0}
-key : RepositoryService and value : MRS_77
-key : TargetProject and value : CLU_PROJECT_MINI
-key : TargetFolder and value : oie_import
-key : ImportFilePath and value : C:\Projects\sendEmail\input\dq_artifacts\oieimportobjects_m.xml
-key : SourceProject and value : CLU_PROJECT_MINI
-key : SkipCRC and value : TRUE
-key : ConflictResolution and value : replace
-key : ControlFilePath and value : C:\Projects\sendEmail\input\dq_artifacts\oieimportobjects_ctl.xml
-key : SkipCnxValidation and value : FALSE
-key : OtherOptions and value : adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\sendEmail\input\dq_artifacts\oieimportobjects_m.zip"
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:42:12.303Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:25.996Z","v":0}
 key == oie_ExportObjects
 fileName == oie_ExportObjects.txt
-key : ExportObjects and value : Run
-key : TestCaseID and value : test_oie_rtm_mini-oie_ExportObjects-case1
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" isLogFileExist: true","time":"2017-01-20T15:42:12.303Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" logFileName, backup_logFileName: - C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat : C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini_20170120_912.bat","time":"2017-01-20T15:42:12.303Z","v":0}
-key : RepositoryService and value : MRS_77
-key : ProjectName and value : CLU_PROJECT_MINI
-key : ExportFilePath and value : C:\Projects\sendEmail\output\dq_artifacts\oieexportobjects_m.xml
-key : OverwriteExportFile and value : true
-key : ControlFilePath and value : C:\Projects\sendEmail\input\dq_artifacts\oieimportobjects_ctl.xml
-key : OtherOptions and value : adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\sendEmail\output\dq_artifacts\oieexportobjects_m.zip"
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:42:12.304Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:25.996Z","v":0}
 key == rtm_export
 fileName == rtm_export.txt
-key : Export and value : Run
-key : TestCaseID and value : test_oie_rtm_mini-rtm_export-case1
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" isLogFileExist: true","time":"2017-01-20T15:42:12.304Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" logFileName, backup_logFileName: - C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat : C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini_20170120_912.bat","time":"2017-01-20T15:42:12.304Z","v":0}
-key : RepositoryService and value : MRS_77
-key : CodePage and value : UTF-8
-key : Folder and value : C:\Projects\sendEmail\output\dq_artifacts
-key : ProjectFolder and value : CLU_PROJECT_MINI/RTM_EXPORT
-key : Recursive and value : TRUE
-key : SkipDatGeneration and value : FALSE
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:42:12.305Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:25.997Z","v":0}
 key == rtm_import
 fileName == rtm_import.txt
-key : Import and value : Run
-key : TestCaseID and value : test_oie_rtm_mini-rtm_import-case1
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" isLogFileExist: true","time":"2017-01-20T15:42:12.305Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" logFileName, backup_logFileName: - C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat : C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini_20170120_912.bat","time":"2017-01-20T15:42:12.305Z","v":0}
-key : RepositoryService and value : MRS_77
-key : CodePage and value : UTF-8
-key : ConflictResolution and value : replace
-key : ImportType and value : MetadataAndData
-key : Folder and value : C:\Projects\sendEmail\input\dq_artifacts
-key : ProjectFolder and value : CLU_PROJECT_MINI/RTM_IMPORT
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:42:12.307Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:25.998Z","v":0}
+key == ms_runmapping
+fileName == ms_runmapping.txt
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:25.999Z","v":0}
+key == dis_listapplications
+fileName == dis_listapplications.txt
+key : ExecuteOption and value : Run
+key : TestCaseID and value : test_oie_rtm-dis_listapplications-case1
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" isLogFileExist: false","time":"2017-01-24T14:41:26.005Z","v":0}
+key : ServiceName and value : DIS_DQSA
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:26.007Z","v":0}
 key == UtilsDontModify
 File not found
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":50,"err":"File Not Found","msg":"Error JSON array looping","time":"2017-01-20T15:42:12.307Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"C:\\Projects\\sendEmail\\output\\executables\\test_oie_rtm_mini.bat  :infacmd_op_file","time":"2017-01-20T15:42:12.307Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"stdout":"\r\nC:\\Projects\\sendEmail>C:\\Projects\\sendEmail\\ptime C:\\Informatica\\10.2.0\\clients\\DeveloperClient\\infacmd\\infacmd.bat   mrs createproject -DomainName Domain_77 -UserName Administrator -Password Administrator -SecurityDomain Native -ServiceName MRS_77 -ProjectName CLU_PROJECT_MINI   1>C:\\Projects\\sendEmail\\output\\cli_logs\\test_oie_rtm_mini-CreateProject-case1.log \r\n\r\nC:\\Projects\\sendEmail>C:\\Projects\\sendEmail\\ptime C:\\Informatica\\10.2.0\\clients\\DeveloperClient\\infacmd\\infacmd.bat   oie importObjects -DomainName Domain_77 -UserName Administrator -Password Administrator -RepositoryService MRS_77 -TargetProject CLU_PROJECT_MINI -SourceProject CLU_PROJECT_MINI -ImportFilePath C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.xml -OtherOptions \"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_m.zip\"\" -ConflictResolution replace   1>C:\\Projects\\sendEmail\\output\\cli_logs\\test_oie_rtm_mini-oie_ImportObjects-case1.log \r\n\r\nC:\\Projects\\sendEmail>C:\\Projects\\sendEmail\\ptime C:\\Informatica\\10.2.0\\clients\\DeveloperClient\\infacmd\\infacmd.bat   oie exportObjects -DomainName Domain_77 -UserName Administrator -Password Administrator -SecurityDomain Native -RepositoryService MRS_77 -ProjectName CLU_PROJECT_MINI -ExportFilePath \"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.xml\" -OverwriteExportFile true -OtherOptions \"adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile=\"C:\\Projects\\sendEmail\\output\\dq_artifacts\\oieexportobjects_m.zip\"\" -ControlFilePath \"C:\\Projects\\sendEmail\\input\\dq_artifacts\\oieimportobjects_ctl.xml\"   1>C:\\Projects\\sendEmail\\output\\cli_logs\\test_oie_rtm_mini-oie_ExportObjects-case1.log \r\n\r\nC:\\Projects\\sendEmail>C:\\Projects\\sendEmail\\ptime C:\\Informatica\\10.2.0\\clients\\DeveloperClient\\infacmd\\infacmd.bat   rtm export -DomainName Domain_77 -UserName Administrator -Password Administrator -SecurityDomain Native -RepositoryService MRS_77 -CodePage UTF-8 -Folder \"C:\\Projects\\sendEmail\\output\\dq_artifacts\" -ProjectFolder CLU_PROJECT_MINI/RTM_EXPORT -Recursive TRUE -SkipDatGeneration FALSE   1>C:\\Projects\\sendEmail\\output\\cli_logs\\test_oie_rtm_mini-rtm_export-case1.log \r\n\r\nC:\\Projects\\sendEmail>C:\\Projects\\sendEmail\\ptime C:\\Informatica\\10.2.0\\clients\\DeveloperClient\\infacmd\\infacmd.bat   rtm import -DomainName Domain_77 -UserName Administrator -Password Administrator -SecurityDomain Native -RepositoryService MRS_77 -CodePage UTF-8 -ConflictResolution replace -ImportType MetadataAndData -Folder \"C:\\Projects\\sendEmail\\input\\dq_artifacts\" -ProjectFolder CLU_PROJECT_MINI/RTM_IMPORT   1>C:\\Projects\\sendEmail\\output\\cli_logs\\test_oie_rtm_mini-rtm_import-case1.log \r\n","stderr":"Jan 20, 2017 9:13:58 PM com.informatica.reftable.cmd.impl.RefTableCmdImpl exportOneReferenceTable\r\nINFO: Exporting table :CLU_PROJECT_MINI/RTM_EXPORT/PP_RT_1\r\nJan 20, 2017 9:14:00 PM com.informatica.reftable.cmd.impl.RefTableCmdImpl exportOneReferenceTable\r\nINFO: Exporting table :CLU_PROJECT_MINI/RTM_EXPORT/CC_RTM\r\nJan 20, 2017 9:14:01 PM com.informatica.reftable.cmd.impl.RefTableCmdImpl exportOneReferenceTable\r\nINFO: Exporting table :CLU_PROJECT_MINI/RTM_EXPORT/TS_RTM\r\nJan 20, 2017 9:14:02 PM com.informatica.reftable.cmd.impl.RefTableCmdImpl exportOneReferenceTable\r\nINFO: Exporting table :CLU_PROJECT_MINI/RTM_EXPORT/TL_RTM\r\nJan 20, 2017 9:14:03 PM com.informatica.reftable.cmd.impl.RefTableCmdImpl exportOneReferenceTable\r\nINFO: Exporting table :CLU_PROJECT_MINI/RTM_EXPORT/TP_RTM\r\n","msg":" Execution done","time":"2017-01-20T15:44:39.519Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":" ******** Iterating EXCEL file ******** ","time":"2017-01-20T15:44:39.520Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":50,"err":{"errno":-4058,"code":"ENOENT","syscall":"open","path":"C:\\Projects\\sendEmail\\output\\cli_logs\\undefined.log"},"msg":"Error from async worksheet row looping","time":"2017-01-20T15:44:39.522Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:44:39.522Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:44:39.522Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:44:39.523Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:44:39.523Z","v":0}
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:44:39.523Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":50,"err":"File Not Found","msg":"Error JSON array looping","time":"2017-01-24T14:41:26.007Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"C:\\Projects\\dqcli_v1\\output\\executables\\test_oie_rtm.bat  :infacmd_op_file","time":"2017-01-24T14:41:26.007Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"stdout":"\r\nC:\\Projects\\dqcli_v1>C:\\Projects\\dqcli_v1\\ptime C:\\Informatica\\10.2.0\\clients\\DeveloperClient\\infacmd\\infacmd.bat   dis listapplications -DomainName Domain_89 -UserName Administrator -Password Administrator -SecurityDomain Native -ServiceName DIS_DQSA   1>C:\\Projects\\dqcli_v1\\output\\cli_logs\\test_oie_rtm-dis_listapplications-case1.log \r\n","stderr":"","msg":" Execution done","time":"2017-01-24T14:41:38.571Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":" ******** Iterating EXCEL file ******** ","time":"2017-01-24T14:41:38.572Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.573Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.573Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.573Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.573Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.573Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.573Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":50,"err":{"errno":-4058,"code":"ENOENT","syscall":"open","path":"C:\\Projects\\dqcli_v1\\output\\cli_logs\\undefined.log"},"msg":"Error from async worksheet row looping","time":"2017-01-24T14:41:38.574Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.574Z","v":0}
 <?xml version="1.0" encoding="utf-8" ?>
 <DSTAutomationReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="buildreport.xsd">
-  <buildNumber>77</buildNumber>
+  <buildNumber>89</buildNumber>
   <branchName>ML</branchName>
   <productVersion>10.2.0</productVersion>
   <executionMode></executionMode>
@@ -98,61 +60,29 @@ File not found
   <buildDate>16-January-2017</buildDate>
   <Installation_Status></Installation_Status>
   <testSuite>
-    <name>test_oie_rtm_mini</name>
-    <totalTestCaseCount>5</totalTestCaseCount>
-    <passedTestCaseCount>4</passedTestCaseCount>
+    <name>test_oie_rtm</name>
+    <totalTestCaseCount>1</totalTestCaseCount>
+    <passedTestCaseCount></passedTestCaseCount>
     <failedTestCaseCount>1</failedTestCaseCount>
     <skippedTestCaseCount>0</skippedTestCaseCount>
-    <timeTaken>146.97799999999998</timeTaken>
+    <timeTaken>12.495</timeTaken>
     <TestCase>
-      <Name>test_oie_rtm_mini-CreateProject-case1</Name>
-      <description></description>
-      <status>Passed</status>
-      <timeTaken>8.008</timeTaken>
-      <exceptionMessage></exceptionMessage>
-      <runLog></runLog>
-    </TestCase>
-    <TestCase>
-      <Name>test_oie_rtm_mini-rtm_import-case1</Name>
-      <description></description>
-      <status>Passed</status>
-      <timeTaken>31.396</timeTaken>
-      <exceptionMessage></exceptionMessage>
-      <runLog></runLog>
-    </TestCase>
-    <TestCase>
-      <Name>test_oie_rtm_mini-rtm_export-case1</Name>
-      <description></description>
-      <status>Passed</status>
-      <timeTaken>30.442</timeTaken>
-      <exceptionMessage></exceptionMessage>
-      <runLog></runLog>
-    </TestCase>
-    <TestCase>
-      <Name>test_oie_rtm_mini-oie_ImportObjects-case1</Name>
-      <description></description>
-      <status>Passed</status>
-      <timeTaken>66.991</timeTaken>
-      <exceptionMessage></exceptionMessage>
-      <runLog></runLog>
-    </TestCase>
-    <TestCase>
-      <Name>test_oie_rtm_mini-oie_ExportObjects-case1</Name>
+      <Name>test_oie_rtm-dis_listapplications-case1</Name>
       <description></description>
       <status>Failed</status>
-      <timeTaken>10.141</timeTaken>
-      <exceptionMessage>[ICMD_10033] Command [exportObjects] failed with error [[OIECMD_10006] Error occurred during export function. See previous error.]</exceptionMessage>
+      <timeTaken>12.495</timeTaken>
+      <exceptionMessage></exceptionMessage>
       <runLog></runLog>
     </TestCase>
   </testSuite>
 </DSTAutomationReport>
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"processing all elements completed","time":"2017-01-20T15:44:39.525Z","v":0}
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"processing all elements completed","time":"2017-01-24T14:41:38.576Z","v":0}
 File written succesfully!!!
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"msg":"http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet  :qatrackurl","time":"2017-01-20T15:44:39.526Z","v":0}
-response body == SUCCESS! The Build Report has been added - .<a href="/qatrack/testSuite.jsp?buildReportID=U:X2Hq098nEea_PPHWXG1qbQ">DQT_ ML_ 10.2.0_ _ ORACLE_ _ importedFromXML_ 1484927082099_#_4_#_0_#_1</a><br>
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"msg":"http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet  :qatrackurl","time":"2017-01-24T14:41:38.578Z","v":0}
+response body == SUCCESS! The Build Report has been added - .<a href="/qatrack/testSuite.jsp?buildReportID=U:On5KweJDEea_PPHWXG1qbQ">DQT_ ML_ 10.2.0_ _ ORACLE_ _ importedFromXML_ 1485268899562_#_0_#_0_#_1</a><br>
 
-/qatrack/testSuite.jsp?buildReportID=U:X2Hq098nEea_PPHWXG1qbQ">DQT_ ML_ 10.2.0_ _ ORACLE_ _ importedFromXML_ 1484927082099_#_4_#_0_#_1</a><br>
+/qatrack/testSuite.jsp?buildReportID=U:On5KweJDEea_PPHWXG1qbQ">DQT_ ML_ 10.2.0_ _ ORACLE_ _ importedFromXML_ 1485268899562_#_0_#_0_#_1</a><br>
 
-data_split 0: /qatrack/testSuite.jsp?buildReportID=U:X2Hq098nEea_PPHWXG1qbQ
-QATrack : http://psrlxpamqa1:8080/qatrack/testSuite.jsp?buildReportID=U:X2Hq098nEea_PPHWXG1qbQ
-{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":3496,"level":30,"err":null,"msg":"Send Email ***","time":"2017-01-20T15:44:49.889Z","v":0}
+data_split 0: /qatrack/testSuite.jsp?buildReportID=U:On5KweJDEea_PPHWXG1qbQ
+QATrack : http://psrlxpamqa1:8080/qatrack/testSuite.jsp?buildReportID=U:On5KweJDEea_PPHWXG1qbQ
+{"name":"dq_cli","hostname":"INW1PC07L0KV","pid":18372,"level":30,"err":null,"msg":"Send Email ***","time":"2017-01-24T14:41:47.466Z","v":0}

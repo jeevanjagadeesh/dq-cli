@@ -1,8 +1,8 @@
-Command ran successfully.
+[ICMD_10033] Command [createproject] failed with error [[PRSCMD_20000] ERROR: '[PRSVCSHARED_00132] Project with name ['CLU_PROJECT_MINI'] already exists. Specify a unique project name.'].
 
 ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
 Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
 
 ===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   mrs createproject -DomainName Domain_77 -UserName Administrator -Password Administrator -SecurityDomain Native -ServiceName MRS_77 -ProjectName CLU_PROJECT_MINI   ===
 
-Execution time: 8.008 s
+Execution time: 7.239 s

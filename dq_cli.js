@@ -133,7 +133,8 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 		  var cli_prefix = '';
 		  var cli_project_home_path='';
 		  
-          if (elementOfArray.ExecuteOption !== 'Skip') {
+		  //Only the rows with ExecuteOption as "Skip" will be ignored. All other options(including blank) are accepted.
+          if ((elementOfArray.ExecuteOption).toUpperCase() !== 'SKIP') {
 		  
             // replace command template arguments with program variables
 			//data = stringReplace(data, '<<timeTracker>>', timeTracker);
@@ -178,7 +179,7 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 		
 		    //Skip argument option from the command, if value found to be {N/A,n/a,na or NA}
 			if(value.toUpperCase() == 'N/A' || value.toUpperCase() == 'NA' || value.toUpperCase() == 'NULL'){
-                console.log('This option is skipped  : '+ '-' + key + ' '+'<<' + key + '>>' +' for command \n' + data);
+                console.log('This option is skipped  : '+ '-' + key + ' '+'<<' + key + '>>');
 				   data = stringReplace(data, '-' + key + ' ' +'<<'+ key + '>>','');
 			}		
 			
