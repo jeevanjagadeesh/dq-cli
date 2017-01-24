@@ -1,0 +1,54 @@
+App_AV_961
+Application_Error
+App_IMO_Regression
+App_AV_Suite
+App_LIN_Para
+App_Classifier_951HF1
+Application_Dec_Para
+App_New_95_Features_AV
+Application_AV_para
+LIN_GeetContent
+App_IDTF_Association
+App_AV_96_Mappings
+App_Exception_Para
+App_MultiIntegration
+Application_Mapping_Para
+App_Gateway_Task
+App_IMO_MatchMappings
+IDTF_Association_n
+App_Association
+App_NLP_For_Geeta
+App_ALL_DQ
+App_Consolidation
+app_DQSA_PRID
+App_Persist_ID
+Application_Classifier
+WF_AV_Para2
+App_IDTF_Match
+Application_EBFnCR
+App_Notification_Task
+App_LIN_SanityIntegration
+App_Nested_Parallel_Task_2
+App_Nested_Parallel_Task_1
+App_MappingTask_IP
+App_MULTIIINSTANCE_GEET
+IDTF_Match_n
+App_Mapping_Task_CH
+App_Multiinstance_DQ_TX
+App_AV_1011
+App_AV_951HF1
+App_LIN_Paranew
+App_WebService
+ApplicationDel
+App_LIN_Parameterization
+App_Exception_Tx
+App_Command_Task_Non_Win
+App_Command_Task_Win
+App_Assignment_Task
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   dis listapplications -DomainName Domain_89 -UserName Administrator -Password Administrator -SecurityDomain Native -ServiceName DIS_DQSA   ===
+
+Execution time: 12.495 s
