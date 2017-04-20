@@ -45,6 +45,9 @@ var infacmd_log_file_dir = path.join(baseDir, 'output','cli_logs');
 //Initialize plugin template directories
 var templates_dir = path.join(baseDir, 'input','templates');
 var template_extn = '.txt';
+var windowsComment = ":: ";
+var linuxComment = "# ";
+var mcType = "Linux";
 
 //Initialize execution time tracker
 var timeTracker = '';
@@ -84,6 +87,7 @@ function main() {
 
   //log.info(' Windows? : ' + os.platform().includes('win'));
   if (os.platform().toLowerCase().includes('win')) {
+	mcType = "Windows";
     infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.bat'));
     infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
 	//Initialize variables to take backup files
@@ -149,6 +153,9 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
             data = stringReplace(data, '<<infacmd_type>>', infacmd_type);
             data = stringReplace(data, '<<LogFileName>>', infacmd_log_file_dir + path.sep);
             //log.info({data: data}, 'command output');
+            var commentData = (mcType === "Windows") ? windowsComment : linuxComment;
+            commentData = commentData + elementOfArray.TestCaseID + "\n";
+            writeToExecutable(infacmd_op_file, commentData);
             writeToExecutable(infacmd_op_file, data);
           }
           callback();
