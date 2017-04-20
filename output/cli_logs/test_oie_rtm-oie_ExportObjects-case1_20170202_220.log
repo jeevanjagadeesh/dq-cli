@@ -1,0 +1,72 @@
+INFO:
+[rtm]
+Execution completed successfully.
+INFO:
+List of objects exported:
+Type,Name,Project,Path
+Application,App_Sanity,CLU_PROJECT,/dq_sanity
+Match,RU_IMO_Tx,CLU_PROJECT,/dq_sanity
+Mapping,m_all_dq_txs,CLU_PROJECT,/dq_sanity
+Content Set,content_probabilistic,CLU_PROJECT,/dq_sanity
+Classifier,RU_Classifier_Tx,CLU_PROJECT,/dq_sanity
+Parser,RU_TokenParser_Tx,CLU_PROJECT,/dq_sanity
+Mapping,m_classifier_tx,CLU_PROJECT,/dq_sanity
+Parser,RU_Patterparser_Tx,CLU_PROJECT,/dq_sanity
+Standardizer,RU_TS_Tx,CLU_PROJECT,/dq_sanity
+Comparison,RU_Comparison_Tx,CLU_PROJECT,/dq_sanity
+Key Generator,RU_Grouper__IMO_Tx,CLU_PROJECT,/dq_sanity
+Case Converter,RU_CaseConverter_Tx,CLU_PROJECT,/dq_sanity
+Decision,RU_DS_Tx,CLU_PROJECT,/dq_sanity
+Labeler,RU_TokenLabeller_Tx,CLU_PROJECT,/dq_sanity
+Content Set,content_classifier,CLU_PROJECT,/dq_sanity
+Weighted Average,RU_WBA_Tx,CLU_PROJECT,/dq_sanity
+Association,RU_Association_Tx,CLU_PROJECT,/dq_sanity
+Match,RU_Match_Tx,CLU_PROJECT,/dq_sanity
+Content Set,content_othertypes,CLU_PROJECT,/dq_sanity
+Exception,RU_exception_Tx,CLU_PROJECT,/dq_sanity
+Merge,RU_Merge_Tx,CLU_PROJECT,/dq_sanity
+Consolidation,RU_Consolidation_Tx,CLU_PROJECT,/dq_sanity
+Key Generator,RU_Grouper_Tx,CLU_PROJECT,/dq_sanity
+Flat File Data Object,RU_Exception_Target,CLU_PROJECT,/dq_sanity
+Flat File Data Object,RU_ALL_TARGET_DQ,CLU_PROJECT,/dq_sanity
+Flat File Data Object,RU_MATCH_TARGET_DQ,CLU_PROJECT,/dq_sanity
+Address Validator,RU_AddressValidator_Tx,CLU_PROJECT,/dq_sanity
+Reference Table,TP_RTM,CLU_PROJECT,/dq_sanity
+Flat File Data Object,RU_AV_IMO_TARGET_DQ,CLU_PROJECT,/dq_sanity
+Flat File Data Object,RU_AV_Target_DQ_New,CLU_PROJECT,/dq_sanity
+Flat File Data Object,sample_pl_en,CLU_PROJECT,/dq_sanity
+Flat File Data Object,TGT_RU_Classifier,CLU_PROJECT,/dq_sanity
+Reference Table,TS_RTM,CLU_PROJECT,/dq_sanity
+Reference Table,CC_RTM,CLU_PROJECT,/dq_sanity
+Flat File Data Object,RU_ASSOCIATION_TARGET_DQ,CLU_PROJECT,/dq_sanity
+Flat File Data Object,RU_AV_Consolidation_DQ,CLU_PROJECT,/dq_sanity
+Reference Table,TL_RTM,CLU_PROJECT,/dq_sanity
+Labeler,RU_Tokencharacter_Tx,CLU_PROJECT,/dq_sanity
+Flat File Data Object,ALL_SOURCE_DQ,CLU_PROJECT,/dq_sanity
+OracleNativeConnectInfo,STAGE,
+Folder,dq_sanity,CLU_PROJECT,/
+Project,CLU_PROJECT,
+Total number of objects exported is [42].
+INFO:
+[Export Before Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[Content data export]
+Execution completed successfully.
+INFO:
+[Export EDR Cleanse Job]
+Execution completed successfully.
+INFO:
+[Export Remote Object Permission Verification Job]
+Execution completed successfully.
+INFO:
+[Export Post Commit Data Domains Rule]
+Execution completed successfully.
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   oie exportObjects -DomainName Domain_102 -UserName Administrator -Password Administrator -SecurityDomain Native -RepositoryService MRS_102 -ProjectName CLU_PROJECT -ExportFilePath "C:\Projects\dqcli_v1\output\dq_artifacts\m_dq_sanity_oie_export.xml" -OverwriteExportFile true -OtherOptions "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\dqcli_v1\output\dq_artifacts\m_dq_sanity_oie_export.zip"" -ControlFilePath "C:\Projects\dqcli_v1\input\dq_artifacts\ctl_dq_sanity_oie_export.xml"   ===
+
+Execution time: 21.175 s

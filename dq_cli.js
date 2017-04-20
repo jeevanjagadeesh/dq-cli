@@ -45,7 +45,7 @@ var infacmd_log_file_dir = path.join(baseDir, 'output','cli_logs');
 //Initialize plugin template directories
 var templates_dir = path.join(baseDir, 'input','templates');
 var template_extn = '.txt';
-
+  var platform_type = 'unknown';
 //Initialize execution time tracker
 var timeTracker = '';
 
@@ -80,10 +80,16 @@ function main() {
   log.info(' Current timestamp: ' + timeid);
   log.info(' OS Type: ' + os.type() + ' & OS Platform: ' + os.platform() + ' & OS arch: ' + os.arch());
   var plugin = cParams.src;
-
-
-  //log.info(' Windows? : ' + os.platform().includes('win'));
+  
   if (os.platform().toLowerCase().includes('win')) {
+      platform_type = 'windows';
+  }
+  else{
+      platform_type = 'non-windows';
+  }
+  
+  //log.info(' Windows? : ' + os.platform().includes('win'));
+  if (platform_type == 'windows') {
     infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.bat'));
     infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
 	//Initialize variables to take backup files
@@ -134,8 +140,8 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 		  var cli_project_home_path='';
 		  
 		  //Only the rows with ExecuteOption as "Skip" will be ignored. All other options(including blank) are accepted.
-          if ((elementOfArray.ExecuteOption).toUpperCase() !== 'SKIP') {
-		  
+         // if ((elementOfArray.ExecuteOption).toUpperCase() !== 'SKIP') {
+		  if ((elementOfArray.ExecuteOption) !== 'Skip') {
             // replace command template arguments with program variables
 			//data = stringReplace(data, '<<timeTracker>>', timeTracker);
            // data = stringReplace(data, '<<infacmd_type>>', infacmd_type);           
@@ -152,7 +158,13 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 			  }				  
             });
             // replace cli_prefix essential for command execution
-    		cli_prefix = cli_project_home_path + timeTracker + ' ' + INFACMD_PATH + infacmd_type+' ';
+			if (platform_type == 'windows'){
+			  cli_prefix = cli_project_home_path + timeTracker + ' ' + INFACMD_PATH + infacmd_type+' ';
+			}
+    		else{
+			 cli_prefix = timeTracker + ' ' + INFACMD_PATH + infacmd_type+' ';
+			}
+			
 			data = stringReplace(data, '<<cli_prefix>>', cli_prefix+' ');
 			
 			// replace command template arguments with TestSuite Inputs
@@ -169,12 +181,15 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 				var isLogFileExist = fs.existsSync(logFileName);
                log.info(' isLogFileExist: ' + isLogFileExist);
 				if (isLogFileExist) {
-					log.info(' logFileName, backup_logFileName: - ' + infacmd_op_file + ' : ' + backup_infacmd_op_file);
+					log.info(' logFileName, backup_logFileName: - ' + logFileName + ' : ' + backup_logFileName);
 					mv(logFileName, backup_logFileName, function(err) {});
 				}	
-		   
+		   if (platform_type == 'non-windows'){
+		   data = stringReplace(data, '<<LogFileName>>', ' >& ' + logFileName);		   
+		   }
+		   else{
 			data = stringReplace(data, '<<LogFileName>>', ' > ' + logFileName);		   
-							
+          }							
 			}  
 		
 		    //Skip argument option from the command, if value found to be {N/A,n/a,na or NA}
@@ -209,7 +224,24 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
       // File creation complete, invoke the script
       log.info(infacmd_op_file, ' :infacmd_op_file');
 
-      childProcess.exec(infacmd_op_file, {timeout:config.ExecutionTimeout}, function(err, stdout, stderr) {
+	  	  //Individual read + write + execute (full access to an individual)
+	if (platform_type == 'non-windows'){	  
+	fs.chmod(infacmd_op_file, 0700, function(err){
+		if(err) {
+              log.error({ err: err }, 'Error changing permission for executable file');
+     }
+	});
+		
+	childProcess.exec('dos2unix '+infacmd_op_file , function (err, stdout, stderr) {
+    log.info({ stdout: stdout, stderr: stderr }, ' Execution done'); 
+           if (err !== null) {
+            log.error({err: err }, 'ERROR Executing dos2unix command');
+          }		  
+});
+	
+	}
+  
+      childProcess.exec(infacmd_op_file, {timeout:config.ExecutionTimeout}, function(err, stdout, stderr) {    	  
         if (err) {
           log.error({ err: err }, 'Error in executing file');
           //process.exit(1);

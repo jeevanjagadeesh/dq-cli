@@ -1,0 +1,9 @@
+[MSCMD_10023] Job with ID [dsevY-kSEeabv60EseOwPA] submitted to the Integration Service [DIS_DQSA].
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   ms runmapping -DomainName Domain_102 -UserName Administrator -Password Administrator -SecurityDomain Native   -ServiceName DIS_DQSA -Application App_Sanity -Mapping m_classifier_tx -Wait TRUE          ===
+
+Execution time: 5.620 s
