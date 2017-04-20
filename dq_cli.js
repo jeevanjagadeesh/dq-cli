@@ -194,13 +194,18 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 		      console.log(error);
 		      process.exit(1);
 		    }
-		      //console.log('statusCode === ' + response.statusCode);
-		      console.log('response body == ' + body);
-		      var emailContent = sendEmailObj.composeMail(body);
-		      sendEmailObj.sendMail(emailContent, function(err, msg) {
-                log.info({err: err, msg:msg}, 'Send Email ***');
-                process.exit(0);
-		      });
+		    //console.log('statusCode === ' + response.statusCode);
+		    if (config.sendEmail) {
+			  console.log('response body == ' + body);
+			  var emailContent = sendEmailObj.composeMail(body);
+			  sendEmailObj.sendMail(emailContent, function(err, msg) {
+			    log.info({err: err, msg:msg}, 'Send Email ***');
+			    process.exit(0);
+			  });
+		    } else {
+                 log.info('*** Send Email turned off - Email not sent ***');
+                 process.exit(0);
+		     }
 		  });
 		   var form = req.form();
 		   form.append('xml', trackerXml);
