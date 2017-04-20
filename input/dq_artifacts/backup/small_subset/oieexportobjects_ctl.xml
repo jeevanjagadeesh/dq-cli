@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <exportParams xmlns="http://www.informatica.com/oie/exportControl/9">
 	<folders>
-		<folder path="/oie_import_ctl" recursive="true" createdBy="Administrator">
+		<folder path="/oie_export" recursive="true" createdBy="Administrator">
 		</folder>
 	</folders>
 </exportParams>

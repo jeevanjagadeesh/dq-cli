@@ -1,0 +1,1 @@
+<<cli_prefix>> dis deployapplication -DomainName <<DomainName>> -UserName <<UserName>> -Password <<Password>> -SecurityDomain <<SecurityDomain>> -ServiceName <<ServiceName>> -FileName "<<FileName>>" -Application <<Application>> <<LogFileName>>

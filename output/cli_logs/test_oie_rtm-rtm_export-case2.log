@@ -1,0 +1,8 @@
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   rtm export -DomainName Domain_102 -UserName Administrator -Password Administrator -SecurityDomain Native -RepositoryService MRS_102 -CodePage UTF-8 -Folder "C:\Projects\dqcli_v1\output\dq_artifacts" -ProjectFolder CLU_PROJECT/dq_sanity -Recursive TRUE -SkipDatGeneration FALSE   ===
+
+Execution time: 19.473 s

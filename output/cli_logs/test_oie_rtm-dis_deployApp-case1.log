@@ -1,0 +1,9 @@
+[2017-02-02T14:25:29+0530] : [DsCore_10081] Application [App_Sanity] was deployed.
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   dis deployapplication -DomainName Domain_102 -UserName Administrator -Password Administrator -SecurityDomain Native -ServiceName DIS_DQSA -FileName "C:\Projects\dqcli_v1\output\dq_artifacts\App_Sanity.iar" -Application App_Sanity   ===
+
+Execution time: 11.173 s

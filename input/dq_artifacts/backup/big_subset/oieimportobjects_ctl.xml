@@ -1,0 +1,13 @@
+<importParams xmlns="http://www.informatica.com/oie/importControl/9">
+	<folderMaps>
+		<folderMap sourceProject="CLU_PROJECT" targetProject="CLU_PROJECT"
+			sourceFolderPath="/oie_export/" targetFolderPath="/oie_import/" resolution="replace"  recursive="true">
+		</folderMap>
+	</folderMaps>
+	<connectionInfo>
+		<rebindMap>
+			<rebind source="dqtx_src" target="dqtx_src"/>
+			<rebind source="STAGE" target="STAGE"/>
+		</rebindMap>
+	</connectionInfo>
+</importParams>
