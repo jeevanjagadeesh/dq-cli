@@ -35,12 +35,10 @@ var plugin_input_dir = path.join(baseDir, 'input', 'testSuite');
 var plugin_input_extn = '.xlsx';
 
 //Initialize log files
+var infacmd_op_file = path.join(baseDir, 'output', 'executables');
+var infacmd_log_file = path.join(baseDir, 'output', 'cli_logs');
 var infacmd_op_file_dir = path.join(baseDir, 'output', 'executables');
 var infacmd_log_file_dir = path.join(baseDir, 'output', 'cli_logs');
-// Default assume , linux
-var infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.sh'));
-var infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
-var infacmd_type = './infacmd.sh';
 
 //Initialize plugin template directories
 var templates_dir = path.join(baseDir, 'input', 'templates');
@@ -48,10 +46,10 @@ var template_extn = '.txt';
 
 var windowsComment = ":: ";
 var linuxComment = "# ";
-var platform_type = 'non-windows';
+var platform_type = 'unknown';
 
 //Initialize execution time tracker
-var timeTracker = '/usr/bin/time -f "Execution time: %e s"';
+var timeTracker = '';
 
 /**
  * Parses the parameters:
@@ -84,20 +82,34 @@ function main() {
   log.info(' Current timestamp: ' + timeid);
   log.info(' OS Type: ' + os.type() + ' & OS Platform: ' + os.platform() + ' & OS arch: ' + os.arch());
   var plugin = cParams.src;
-  var config = require('./properties/' + cParams.gp);
+  var configFile = cParams.gp;
+  var config = require('./properties/' + configFile);
   var dqCliLogReader = new dqLog(log, config);
   var sendEmailObj = new email(log, config);
-  //Initialize variables to take backup files
-  var backup_infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('_').concat(timeid).concat('.sh'));
 
   if (os.platform().toLowerCase().includes('win')) {
     platform_type = 'windows';
+  } else {
+    platform_type = 'non-windows';
+  }
+
+  //log.info(' Windows? : ' + os.platform().includes('win'));
+
+  if (platform_type === 'windows') {
     infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.bat'));
-	infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
-	//Initialize variables to take backup files
-	var backup_infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('_').concat(timeid).concat('.bat'));
-	var infacmd_type = 'infacmd.bat';
+    infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
+    //Initialize variables to take backup files
+    var backup_infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('_').concat(timeid).concat('.bat'));
+    var infacmd_type = 'infacmd.bat';
     timeTracker = 'ptime';
+  } else {
+    infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.sh'));
+    infacmd_log_file = path.join(infacmd_log_file_dir, plugin.concat('.log'));
+    //Initialize variables to take backup files
+    var backup_infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('_').concat(timeid).concat('.sh'));
+
+    var infacmd_type = './infacmd.sh';
+    timeTracker = '/usr/bin/time -f "Execution time: %e s"'
   }
 
   var isFileExist = fs.existsSync(infacmd_op_file);
@@ -126,6 +138,7 @@ function main() {
       }
       var template = fs.readFileSync(filePath, 'utf8');
       if (template) {
+        //console.log('fileName == '+fileName);
 
         async.forEach(value, function(elementOfArray, callback) {
           var data = template;
@@ -135,6 +148,7 @@ function main() {
           //Only the rows with ExecuteOption as "Skip" will be ignored. All other options(including blank) are accepted.
           if ((elementOfArray.ExecuteOption).toUpperCase() !== 'SKIP') {
             // replace command template arguments with program variables
+
             // replace command template arguments with config.json properties
             _.forEach(config, function(value, key) {
               data = stringReplace(data, '<<' + key + '>>', value);
@@ -160,7 +174,7 @@ function main() {
               console.log('key : ' + key + ' and value : ' + value);
 
               //Replace <<LogFileName>>
-              if (key === 'TestCaseID') {
+              if (key == 'TestCaseID') {
 
                 var logFileName = infacmd_log_file_dir + path.sep + value + '.log';
                 var backup_logFileName = infacmd_log_file_dir + path.sep + value + '_' + timeid + '.log';
