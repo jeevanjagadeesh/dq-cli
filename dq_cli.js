@@ -18,18 +18,16 @@ log.level('debug');
 
 //Initialze excel to json convertors
 var excel = require('./lib/excel2Json.js');
-var config = require('./properties/config.json');
 var excel2Json = new excel(log);
 var baseDir = __dirname;
 
 //Load log reader
 var dqLog = require('./lib/dqCliLogReader.js');
-var dqCliLogReader = new dqLog(log);
 var email = require('./lib/sendEmail.js');
-var sendEmailObj = new email(log, config);
 
 var DEFAULT_PARAMS = {
-  src: "oie"
+  src: "oie",
+  gp: "config.json"
 };
 
 //Initialize excel input directories
@@ -84,6 +82,11 @@ function main() {
   log.info(' Current timestamp: ' + timeid);
   log.info(' OS Type: ' + os.type() + ' & OS Platform: ' + os.platform() + ' & OS arch: ' + os.arch());
   var plugin = cParams.src;
+  var configFile = cParams.gp;
+  console.log('configFile == '+configFile);
+  var config = require('./properties/' + configFile);
+  var dqCliLogReader = new dqLog(log, config);
+  var sendEmailObj = new email(log, config);
 
   if (os.platform().toLowerCase().includes('win')) {
       platform_type = 'windows';
