@@ -140,7 +140,7 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
       }
       var template = fs.readFileSync(filePath, 'utf8');
 		  if (template) {
-		  console.log('fileName == '+fileName);
+		  //console.log('fileName == '+fileName);
 
         async.forEach(value, function(elementOfArray, callback) {
           var data = template;
@@ -221,6 +221,7 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
         }, function(err) {
           if (err) {
             log.error({ err: err }, 'Error from async array looping');
+            return handleError(log, sendEmailObj);
           }
           // for every worksheet completed- add line break
           writeToExecutable(infacmd_op_file, "\n");
@@ -230,7 +231,7 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
     }, function(err) {
       if (err) {
         log.error({ err: err }, 'Error JSON array looping');
-       // process.exit(1);
+        return handleError(log, sendEmailObj);
       }
       // File creation complete, invoke the script
       log.info(infacmd_op_file, ' :infacmd_op_file');
@@ -240,13 +241,15 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 	fs.chmod(infacmd_op_file, 0700, function(err){
 		if(err) {
               log.error({ err: err }, 'Error changing permission for executable file');
+              return handleError(log, sendEmailObj);
      }
 	});
 
 	childProcess.exec('dos2unix '+infacmd_op_file , function (err, stdout, stderr) {
     log.info({ stdout: stdout, stderr: stderr }, ' Execution done');
-           if (err !== null) {
+           if (err) {
             log.error({err: err }, 'ERROR Executing dos2unix command');
+            return handleError(log, sendEmailObj);
           }
 });
 
@@ -255,15 +258,13 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
       childProcess.exec(infacmd_op_file, {timeout:config.ExecutionTimeout}, function(err, stdout, stderr) {
         if (err) {
           log.error({ err: err }, 'Error in executing file');
-          //process.exit(1);
+          return handleError(log, sendEmailObj);
         }
         log.info({ stdout: stdout, stderr: stderr }, ' Execution done');
         dqCliLogReader.generateExecutionXml(xlsData, plugin, function(err, trackerXml) {
           if (err) {
             log.error({err: err }, 'Error in generating Xml');
-            // must exit
-            log.info('ERROR Exiting');
-            process.exit(1);
+            return handleError(log, sendEmailObj);
           }
           // XML generated invoke the service
           log.info(config.qatrackurl, ' :qatrackurl');
@@ -273,7 +274,7 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 		  }, function(error, response, body) {
 		    if (error) {
 		      console.log(error);
-		  //    process.exit(1);
+		      return handleError(log, sendEmailObj);
 		    }
 
 		    //console.log('statusCode === ' + response.statusCode);
@@ -310,6 +311,17 @@ function writeToExecutable(fileName, data) {
   //log.info("Going to write into existing file");
   fs.appendFileSync(fileName, data);
   //log.info("Data written successfully!");
+}
+
+function handleError(log, sendEmailObj) {
+  log.info('ERROR, sending email and Exiting');
+    var data = {'subject': "CLI Automation report - Build Failure",
+  'text': "<p>Hi,</p><p>&nbsp;</p><p>&nbsp; &nbsp; Error Occured during the execution Process, Please check log for more info. <p>&nbsp;</p><p>Regards,</p><p>CLI&nbsp;Automation Team</p>"
+  };
+  sendEmailObj.sendMail(data, function(err, msg) {
+    log.info({err: err, msg:msg}, 'Send Email handleError ***');
+    process.exit(1);
+  });
 }
 
 process.on('uncaughtException', function(err) {
