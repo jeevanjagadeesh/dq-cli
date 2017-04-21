@@ -1,0 +1,8 @@
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   mrs createproject -DomainName Domain_102 -UserName Administrator -Password Administrator -SecurityDomain Native -ServiceName MRS_102 -ProjectName CLU_PROJECT   ===
+
+Execution time: 6.195 s

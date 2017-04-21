@@ -1,0 +1,112 @@
+INFO:
+[EDR Connection Import]
+Connections rebinding was initialized.
+
+INFO:
+[rtm]
+Execution completed successfully.
+INFO:
+List of objects imported:
+Type,Name,Source Project,Target Project,Source Path,Target Path,Resolution,Renamed To
+Consolidation,RU_Consolidation_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Mapping,m_classifier_tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Parser,RU_TokenParser_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Weighted Average,RU_WBA_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Content Set,content_classifier,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Labeler,RU_Tokencharacter_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Labeler,RU_TokenLabeller_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Comparison,RU_Comparison_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Parser,RU_Patterparser_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Application,App_Sanity,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Key Generator,RU_Grouper_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Mapping,m_all_dq_txs,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Decision,RU_DS_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Match,RU_IMO_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Classifier,RU_Classifier_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Content Set,content_probabilistic,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Association,RU_Association_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Standardizer,RU_TS_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Key Generator,RU_Grouper__IMO_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Exception,RU_exception_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Case Converter,RU_CaseConverter_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Content Set,content_othertypes,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,RU_AV_IMO_TARGET_DQ,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,RU_MATCH_TARGET_DQ,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,RU_AV_Consolidation_DQ,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,RU_ALL_TARGET_DQ,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Reference Table,CC_RTM,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,RU_AV_Target_DQ_New,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Reference Table,TS_RTM,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,ALL_SOURCE_DQ,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Address Validator,RU_AddressValidator_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,sample_pl_en,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Reference Table,TL_RTM,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,RU_Exception_Target,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,TGT_RU_Classifier,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Match,RU_Match_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Merge,RU_Merge_Tx,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Reference Table,TP_RTM,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Flat File Data Object,RU_ASSOCIATION_TARGET_DQ,CLU_PROJECT,CLU_PROJECT,/dq_sanity,/dq_sanity,,
+Total number of objects imported is [39].
+INFO:
+[Import Before Copy Tags Job]
+Execution completed successfully.
+INFO:
+[Multi-Instance Contribution Job]
+Execution completed successfully.
+INFO:
+[Import Data Object Job]
+Data Model Mappings resolution completed.
+INFO:
+[Import Before Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[SQL Endpoint Import Job]
+Data Model Mappings resolution completed.
+INFO:
+[Import Before Copy Matcher Transformation Job]
+Execution completed successfully.
+INFO:
+[Import Before Copy EDR Job]
+Non interactive connection resolution completed.
+INFO:
+[Import After Copy Hadoop Connection Job]
+Execution completed successfully.
+INFO:
+[Import Post Copy Data Domains Rule]
+Execution completed successfully.
+INFO:
+[Import Post Copy Profile Time Update]
+Execution completed successfully.
+INFO:
+[EDR Import Job]
+Connections rebinding was successful.
+List of connections binding after import:
+Source Connection, Target Connection
+STAGE,STAGE
+
+INFO:
+[Import Post Copy Content]
+Execution completed successfully.
+INFO:
+[Import After Commit Tags Job]
+Execution completed successfully.
+INFO:
+[Import After Commit Hadoop Connection Job]
+Execution completed successfully.
+INFO:
+[Import After Commit AppSDK Job]
+Execution completed successfully.
+INFO:
+[Import Post Commit Content ]
+Execution completed successfully.
+Feb 02, 2017 12:05:05 PM com.informatica.imf.io.impl.XMLDeserializerImpl <init>
+WARNING: *** Disabling XML Schema validation
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   oie importObjects -DomainName Domain_102 -UserName Administrator -Password Administrator -RepositoryService MRS_102   -SourceProject CLU_PROJECT -ImportFilePath "C:\Projects\dqcli_v1\input\dq_artifacts\m_dq_sanity.xml" -OtherOptions "adapter:pluginCheck=false;rtm:codePage=UTF-8,refDataFile="C:\Projects\dqcli_v1\input\dq_artifacts\m_dq_sanity.zip"" -ControlFilePath C:\Projects\dqcli_v1\input\dq_artifacts\ctl_dq_sanity.xml -ConflictResolution replace -SkipCRC TRUE -SkipCnxValidation FALSE   ===
+
+Execution time: 39.810 s

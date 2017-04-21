@@ -1,2 +1,0 @@
-
-<<INFACMD_PATH>><<infacmd_type>> rtm export -dn <<DomainName>> -un <<UserName>> -pd <<Password>> -sdn <<SecurityDomain>> -rs <<RepositoryService>> -cp <<CodePage>> -f "<<Folder>>" -pf <<ProjectFolder>> -r <<Recursive>> -sdg <<SkipDatGeneration>> >> <<LogFileName>>
