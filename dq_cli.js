@@ -80,14 +80,14 @@ function main() {
   log.info(' Current timestamp: ' + timeid);
   log.info(' OS Type: ' + os.type() + ' & OS Platform: ' + os.platform() + ' & OS arch: ' + os.arch());
   var plugin = cParams.src;
-  
+
   if (os.platform().toLowerCase().includes('win')) {
       platform_type = 'windows';
   }
   else{
       platform_type = 'non-windows';
   }
-  
+
   //log.info(' Windows? : ' + os.platform().includes('win'));
   if (platform_type == 'windows') {
     infacmd_op_file = path.join(infacmd_op_file_dir, plugin.concat('.bat'));
@@ -138,24 +138,24 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
           var data = template;
 		  var cli_prefix = '';
 		  var cli_project_home_path='';
-		  
+
 		  //Only the rows with ExecuteOption as "Skip" will be ignored. All other options(including blank) are accepted.
          // if ((elementOfArray.ExecuteOption).toUpperCase() !== 'SKIP') {
 		  if ((elementOfArray.ExecuteOption) !== 'Skip') {
             // replace command template arguments with program variables
 			//data = stringReplace(data, '<<timeTracker>>', timeTracker);
-           // data = stringReplace(data, '<<infacmd_type>>', infacmd_type);           
+           // data = stringReplace(data, '<<infacmd_type>>', infacmd_type);
 
 		    // replace command template arguments with config.json properties
             _.forEach(config, function(value, key) {
               data = stringReplace(data, '<<' + key + '>>', value);
-			  
+
 			  if(key == 'cli_project_home_path'){
-			    cli_project_home_path=value;			  
-			  }		
+			    cli_project_home_path=value;
+			  }
               if(key == 'INFACMD_PATH'){
-			    INFACMD_PATH=value;			  
-			  }				  
+			    INFACMD_PATH=value;
+			  }
             });
             // replace cli_prefix essential for command execution
 			if (platform_type == 'windows'){
@@ -164,45 +164,45 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
     		else{
 			 cli_prefix = timeTracker + ' ' + INFACMD_PATH + infacmd_type+' ';
 			}
-			
+
 			data = stringReplace(data, '<<cli_prefix>>', cli_prefix+' ');
-			
+
 			// replace command template arguments with TestSuite Inputs
             _.forEach(elementOfArray, function(value, key) {
 			console.log('key : ' + key + ' and value : ' + value);
-			
-			//Replace <<LogFileName>>		
+
+			//Replace <<LogFileName>>
 			if(key == 'TestCaseID'){
-			
+
 		   var logFileName=infacmd_log_file_dir + path.sep + value+'.log';
 		   var backup_logFileName = infacmd_log_file_dir + path.sep + value+'_'+timeid+'.log';
 
-		   		//Take backup of Log file				
+		   		//Take backup of Log file
 				var isLogFileExist = fs.existsSync(logFileName);
                log.info(' isLogFileExist: ' + isLogFileExist);
 				if (isLogFileExist) {
 					log.info(' logFileName, backup_logFileName: - ' + logFileName + ' : ' + backup_logFileName);
 					mv(logFileName, backup_logFileName, function(err) {});
-				}	
+				}
 		   if (platform_type == 'non-windows'){
-		   data = stringReplace(data, '<<LogFileName>>', ' >& ' + logFileName);		   
+		   data = stringReplace(data, '<<LogFileName>>', ' >& ' + logFileName);
 		   }
 		   else{
-			data = stringReplace(data, '<<LogFileName>>', ' > ' + logFileName);		   
-          }							
-			}  
-		
+			data = stringReplace(data, '<<LogFileName>>', ' > ' + logFileName);
+          }
+			}
+
 		    //Skip argument option from the command, if value found to be {N/A,n/a,na or NA}
 			if(value.toUpperCase() == 'N/A' || value.toUpperCase() == 'NA' || value.toUpperCase() == 'NULL'){
                 console.log('This option is skipped  : '+ '-' + key + ' '+'<<' + key + '>>');
 				   data = stringReplace(data, '-' + key + ' ' +'<<'+ key + '>>','');
-			}		
-			
+			}
+
               data = stringReplace(data, '<<' + key + '>>', value);
-		
- 
+
+
             });
-			
+
             //log.info({data: data}, 'command output');
             writeToExecutable(infacmd_op_file, data);
           }
@@ -225,23 +225,23 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
       log.info(infacmd_op_file, ' :infacmd_op_file');
 
 	  	  //Individual read + write + execute (full access to an individual)
-	if (platform_type == 'non-windows'){	  
+	if (platform_type == 'non-windows'){
 	fs.chmod(infacmd_op_file, 0700, function(err){
 		if(err) {
               log.error({ err: err }, 'Error changing permission for executable file');
      }
 	});
-		
+
 	childProcess.exec('dos2unix '+infacmd_op_file , function (err, stdout, stderr) {
-    log.info({ stdout: stdout, stderr: stderr }, ' Execution done'); 
+    log.info({ stdout: stdout, stderr: stderr }, ' Execution done');
            if (err !== null) {
             log.error({err: err }, 'ERROR Executing dos2unix command');
-          }		  
+          }
 });
-	
+
 	}
-  
-      childProcess.exec(infacmd_op_file, {timeout:config.ExecutionTimeout}, function(err, stdout, stderr) {    	  
+
+      childProcess.exec(infacmd_op_file, {timeout:config.ExecutionTimeout}, function(err, stdout, stderr) {
         if (err) {
           log.error({ err: err }, 'Error in executing file');
           //process.exit(1);
@@ -264,14 +264,19 @@ log.info(' infacmd_op_file, backup_infacmd_op_file: exists- ' + infacmd_op_file 
 		      console.log(error);
 		  //    process.exit(1);
 		    }
-		      //console.log('statusCode === ' + response.statusCode);
-		      console.log('response body == ' + body);
-		   //   var test ='SUCCESS! The Build Report has been added - .<a href="/qatrack/testSuite.jsp?buildReportID=U:1KMX5tzdEea_PPHWXG1qbQ">DQT_ ML_ 10.2.0_ _ ORACLE_ _ importedFromXML_ 1484675593771_#_0_#_0_#_0</a><br>';
-		      var emailContent = sendEmailObj.composeMail(body);
-		      sendEmailObj.sendMail(emailContent, function(err, msg) {
-                log.info({err: err, msg:msg}, 'Send Email ***');
-                process.exit(0);
-		      });
+
+		    //console.log('statusCode === ' + response.statusCode);
+		    if (config.sendEmail) {
+			  console.log('response body == ' + body);
+			  var emailContent = sendEmailObj.composeMail(body);
+			  sendEmailObj.sendMail(emailContent, function(err, msg) {
+			    log.info({err: err, msg:msg}, 'Send Email ***');
+			    process.exit(0);
+			  });
+		    } else {
+                 log.info('*** Send Email turned off - Email not sent ***');
+                 process.exit(0);
+		     }
 		  });
 		   var form = req.form();
 		   form.append('xml', trackerXml);
