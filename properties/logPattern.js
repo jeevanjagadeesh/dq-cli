@@ -1,7 +1,9 @@
 module.exports = function(config) {
   config.logpattern = {
     // success grep string
-    success: 'Command ran successfully.',
+    success: ['Command ran successfully.',
+      'test'
+    ],
     // failure grep strings
     failure: [
 	        '[ICMD_10033] Command [exportObjects] failed with error [[OIECMD_10006] Error occurred during export function. See previous error.]',
