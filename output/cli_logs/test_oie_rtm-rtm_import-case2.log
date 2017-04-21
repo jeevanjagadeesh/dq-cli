@@ -1,0 +1,8 @@
+Command ran successfully.
+
+ptime 1.0 for Win32, Freeware - http://www.pc-tools.net/
+Copyright(C) 2002, Jem Berkes <jberkes@pc-tools.net>
+
+===  C:\Informatica\10.2.0\clients\DeveloperClient\infacmd\infacmd.bat   rtm import -DomainName Domain_102 -UserName Administrator -Password Administrator -SecurityDomain Native -RepositoryService MRS_102 -CodePage UTF-8 -ConflictResolution replace -ImportType MetadataAndData -Folder "C:\Projects\dqcli_v1\input\dq_artifacts" -ProjectFolder CLU_PROJECT/rtm_import   ===
+
+Execution time: 18.407 s

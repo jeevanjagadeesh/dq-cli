@@ -1,0 +1,12 @@
+<importParams xmlns="http://www.informatica.com/oie/importControl/9">
+	<folderMaps>
+		<folderMap sourceProject="CLU_PROJECT" targetProject="CLU_PROJECT"
+			sourceFolderPath="/dq_sanity" targetFolderPath="/oie_import_ctl" resolution="replace"  recursive="true">
+		</folderMap>
+	</folderMaps>
+	<connectionInfo>
+		<rebindMap>
+			<rebind source="STAGE" target="STAGE"/>
+		</rebindMap>
+	</connectionInfo>
+</importParams>

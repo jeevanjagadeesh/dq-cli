@@ -1,0 +1,2 @@
+<<cli_prefix>> oie importObjects -DomainName <<DomainName>> -UserName <<UserName>> -Password <<Password>> -RepositoryService <<RepositoryService>> -TargetProject <<TargetProject>> -SourceProject <<SourceProject>> -ImportFilePath <<ImportFilePath>> -OtherOptions "<<OtherOptions>>" -ConflictResolution <<ConflictResolution>> <<LogFileName>>
+
