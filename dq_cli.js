@@ -123,6 +123,7 @@ function main() {
   var inputFile = path.join(plugin_input_dir, plugin.concat(plugin_input_extn));
   var workbook = excel2Json.readExcelFile(inputFile);
   var xlsData;
+  var skipUtils;
   excel2Json.to_json(workbook, function(result) {
     xlsData = result;
     log.info({ result: result }, 'result of excel read');
@@ -130,18 +131,18 @@ function main() {
     async.forEachOf(result, function(value, key, callback) {
       console.log('key == ' + key);
       // skip Utils
-      if (key === 'Utils') {
-        log.info({ key: key }, 'Skip Utils');
-	return callback();
-      }
+      skipUtils = (key === 'Utils') ? true : false;
+      //console.log('skipUtils '+skipUtils);
+
       var fileName = key + template_extn;
       var filePath = path.join(templates_dir, fileName);
       // skip Utils
-      if (!fs.existsSync(filePath)) {
+      if (!fs.existsSync(filePath) && !skipUtils) {
         log.error({ filePath: filePath }, 'File not found');
         return callback('File Not Found');
       }
-      var template = fs.readFileSync(filePath, 'utf8');
+      // skip utils
+      var template = skipUtils ? null : fs.readFileSync(filePath, 'utf8');
       if (template) {
         //console.log('fileName == '+fileName);
 
