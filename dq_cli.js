@@ -132,8 +132,9 @@ function main() {
 
       var fileName = key + template_extn;
       var filePath = path.join(templates_dir, fileName);
-      if (!fs.existsSync(filePath)) {
-        console.log("File not found");
+      // skip Utils
+      if (!fs.existsSync(filePath) && fileName !== 'Utils') {
+		    log.error({ filePath: filePath }, 'File not found');
         return callback('File Not Found');
       }
       var template = fs.readFileSync(filePath, 'utf8');
