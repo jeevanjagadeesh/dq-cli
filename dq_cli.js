@@ -129,12 +129,16 @@ function main() {
 
     async.forEachOf(result, function(value, key, callback) {
       console.log('key == ' + key);
-
+      // skip Utils
+      if (key === 'Utils') {
+        log.info({ key: key }, 'Skip Utils');
+	return callback();
+      }
       var fileName = key + template_extn;
       var filePath = path.join(templates_dir, fileName);
       // skip Utils
-      if (!fs.existsSync(filePath) && key !== 'Utils') {
-		    log.error({ filePath: filePath }, 'File not found');
+      if (!fs.existsSync(filePath)) {
+        log.error({ filePath: filePath }, 'File not found');
         return callback('File Not Found');
       }
       var template = fs.readFileSync(filePath, 'utf8');
