@@ -27,7 +27,8 @@ var email = require('./lib/sendEmail.js');
 
 var DEFAULT_PARAMS = {
   src: "oie",
-  gp: "config.json"
+  gp: "config.json",
+  se: 'No'
 };
 
 //Initialize excel input directories
@@ -105,6 +106,7 @@ function main() {
   log.info(' OS Type: ' + os.type() + ' & OS Platform: ' + os.platform() + ' & OS arch: ' + os.arch());
   var plugin = cParams.src;
   var configFile = cParams.gp;
+  var se = cParams.se;
   var config = require('./properties/' + configFile);
   var dqCliLogReader = new dqLog(log, config);
   var sendEmailObj = new email(log, config);
@@ -147,173 +149,191 @@ function main() {
   excel2Json.to_json(workbook, function (result) {
     xlsData = result;
     log.info({ result: result }, 'result of excel read');
-
-    async.forEachOf(result, function (value, key, callback) {
-      console.log('key == ' + key);
-      if(key === 'Utils') return callback();
-      var fileName = key + template_extn;
-      var filePath = path.join(templates_dir, fileName);
-      if (!fs.existsSync(filePath)) {
-        console.log("File not found");
-        return callback('File Not Found');
-      }
-      var template = fs.readFileSync(filePath, 'utf8');
-      if (template) {
-        //console.log('fileName == '+fileName);
-
-        async.forEach(value, function (elementOfArray, callback) {
-          var data = template;
-          var cli_prefix = '';
-          var cli_project_home_path = '';
-          var INFACMD_PATH;
-
-          //Only the rows with ExecuteOption as "Skip" will be ignored. All other options(including blank) are accepted.
-          if ((elementOfArray.ExecuteOption).toUpperCase() !== 'SKIP') {
-            // replace command template arguments with program variables
-
-            // replace command template arguments with config.json properties
-            _.forEach(config, function (value, key) {
-              data = stringReplace(data, '<<' + key + '>>', value);
-
-              if (key === 'cli_project_home_path') {
-                cli_project_home_path = value;
-              }
-              if (key === 'INFACMD_PATH') {
-                INFACMD_PATH = value;
-              }
-            });
-            // replace cli_prefix essential for command execution
-            if (platform_type === 'windows') {
-              cli_prefix = cli_project_home_path + timeTracker + ' ' + INFACMD_PATH + infacmd_type + ' ';
-            } else {
-              cli_prefix = timeTracker + ' ' + INFACMD_PATH + infacmd_type + ' ';
-            }
-
-            data = stringReplace(data, '<<cli_prefix>>', cli_prefix + ' ');
-
-            // replace command template arguments with TestSuite Inputs
-            _.forEach(elementOfArray, function (value, key) {
-              console.log('key : ' + key + ' and value : ' + value);
-
-              //Replace <<LogFileName>>
-              if (key === 'TestCaseID') {
-
-                var logFileName = infacmd_log_file_dir + path.sep + value + '.log';
-                var backup_logFileName = infacmd_log_file_dir + path.sep + value + '_' + timeid + '.log';
-
-                //Take backup of Log file
-                var isLogFileExist = fs.existsSync(logFileName);
-                log.info(' isLogFileExist: ' + isLogFileExist);
-                if (isLogFileExist) {
-                  log.info(' logFileName, backup_logFileName: - ' + logFileName + ' : ' + backup_logFileName);
-                  mv(logFileName, backup_logFileName, function (err) {});
-                }
-                if (platform_type === 'non-windows') {
-                  data = stringReplace(data, '<<LogFileName>>', ' >& ' + logFileName);
-                } else {
-                  data = stringReplace(data, '<<LogFileName>>', ' > ' + logFileName);
-                }
-              }
-
-              //Skip argument option from the command, if value found to be {N/A,n/a,na or NA}
-              if (value.toUpperCase() === 'N/A' || value.toUpperCase() === 'NA' || value.toUpperCase() === 'NULL') {
-                console.log('This option is skipped  : ' + '-' + key + ' ' + '<<' + key + '>>');
-                data = stringReplace(data, '-' + key + ' ' + '<<' + key + '>>', '');
-              }
-              data = stringReplace(data, '<<' + key + '>>', value);
-            });
-
-            //log.info({data: data}, 'command output');
-            var commentData = (platform_type === 'windows') ? windowsComment : linuxComment;
-            commentData = commentData + elementOfArray.TestCaseID + "\n";
-            writeToExecutable(infacmd_op_file, commentData);
-            writeToExecutable(infacmd_op_file, data);
-          }
-          callback();
-        }, function (err) {
-          if (err) {
-            log.error({ err: err }, 'Error from async array looping');
-            return handleError(log, sendEmailObj);
-          }
-          // for every worksheet completed- add line break
-          writeToExecutable(infacmd_op_file, "\n");
-          log.info("processing all elements completed");
-          callback();
-        });
-      }
-    }, function (err) {
-      if (err) {
-        log.error({err: err }, 'Error JSON array looping');
-        return handleError(log, sendEmailObj);
-      }
-      // File creation complete, invoke the script
-      log.info(infacmd_op_file, ' :infacmd_op_file');
-
-      //Individual read + write + execute (full access to an individual)
-      if (platform_type === 'non-windows') {
-        fs.chmod(infacmd_op_file, '0700', function (err) {
-          if (err) {
-            log.error({err: err }, 'Error changing permission for executable file');
-            return handleError(log, sendEmailObj);
-          }
-        });
-
-        childProcess.exec('dos2unix ' + infacmd_op_file, function (err, stdout, stderr) {
-          log.info({stdout: stdout, stderr: stderr }, ' Execution done');
-          if (err) {
-            log.error({err: err }, 'ERROR Executing dos2unix command');
-            return handleError(log, sendEmailObj);
-          }
-        });
-      }
-
-      childProcess.exec(infacmd_op_file, {
-        timeout: config.ExecutionTimeout
-      }, function (err, stdout, stderr) {
+    if (se.toUpperCase() === 'Y' || se.toUpperCase() === 'YES') {
+      generateReport(dqCliLogReader, sendEmailObj, xlsData, plugin, config, function(err, done) {
         if (err) {
-          log.error({err: err}, 'Error in executing file');
+          log.error({ err: err }, 'Error generateReport');
           return handleError(log, sendEmailObj);
         }
-        log.info({stdout: stdout, stderr: stderr }, ' Execution done');
-        dqCliLogReader.generateExecutionXml(xlsData, plugin, function (err, trackerXml) {
-          if (err) {
-            log.error({ err: err }, 'Error in generating Xml');
-            return handleError(log, sendEmailObj);
-          }
-          // XML generated invoke the service
-          log.info(config.qatrackurl, ' :qatrackurl');
-          var req = request.post({
-            url: config.qatrackurl,
-            headers: {
-              'Content-Type': 'multipart/form-data'
+        process.exit(0);
+      });
+    } else {
+      async.forEachOf(result, function (value, key, callback) {
+        console.log('key == ' + key);
+        if(key === 'Utils') return callback();
+        var fileName = key + template_extn;
+        var filePath = path.join(templates_dir, fileName);
+        if (!fs.existsSync(filePath)) {
+          console.log("File not found");
+          return callback('File Not Found');
+        }
+        var template = fs.readFileSync(filePath, 'utf8');
+        if (template) {
+          //console.log('fileName == '+fileName);
+
+          async.forEach(value, function (elementOfArray, callback) {
+            var data = template;
+            var cli_prefix = '';
+            var cli_project_home_path = '';
+            var INFACMD_PATH;
+
+            //Only the rows with ExecuteOption as "Skip" will be ignored. All other options(including blank) are accepted.
+            if ((elementOfArray.ExecuteOption).toUpperCase() !== 'SKIP') {
+              // replace command template arguments with program variables
+
+              // replace command template arguments with config.json properties
+              _.forEach(config, function (value, key) {
+                data = stringReplace(data, '<<' + key + '>>', value);
+
+                if (key === 'cli_project_home_path') {
+                  cli_project_home_path = value;
+                }
+                if (key === 'INFACMD_PATH') {
+                  INFACMD_PATH = value;
+                }
+              });
+              // replace cli_prefix essential for command execution
+              if (platform_type === 'windows') {
+                cli_prefix = cli_project_home_path + timeTracker + ' ' + INFACMD_PATH + infacmd_type + ' ';
+              } else {
+                cli_prefix = timeTracker + ' ' + INFACMD_PATH + infacmd_type + ' ';
+              }
+
+              data = stringReplace(data, '<<cli_prefix>>', cli_prefix + ' ');
+
+              // replace command template arguments with TestSuite Inputs
+              _.forEach(elementOfArray, function (value, key) {
+                console.log('key : ' + key + ' and value : ' + value);
+
+                //Replace <<LogFileName>>
+                if (key === 'TestCaseID') {
+
+                  var logFileName = infacmd_log_file_dir + path.sep + value + '.log';
+                  var backup_logFileName = infacmd_log_file_dir + path.sep + value + '_' + timeid + '.log';
+
+                  //Take backup of Log file
+                  var isLogFileExist = fs.existsSync(logFileName);
+                  log.info(' isLogFileExist: ' + isLogFileExist);
+                  if (isLogFileExist) {
+                    log.info(' logFileName, backup_logFileName: - ' + logFileName + ' : ' + backup_logFileName);
+                    mv(logFileName, backup_logFileName, function (err) {});
+                  }
+                  if (platform_type === 'non-windows') {
+                    data = stringReplace(data, '<<LogFileName>>', ' >& ' + logFileName);
+                  } else {
+                    data = stringReplace(data, '<<LogFileName>>', ' > ' + logFileName);
+                  }
+                }
+
+                //Skip argument option from the command, if value found to be {N/A,n/a,na or NA}
+                if (value.toUpperCase() === 'N/A' || value.toUpperCase() === 'NA' || value.toUpperCase() === 'NULL') {
+                  console.log('This option is skipped  : ' + '-' + key + ' ' + '<<' + key + '>>');
+                  data = stringReplace(data, '-' + key + ' ' + '<<' + key + '>>', '');
+                }
+                data = stringReplace(data, '<<' + key + '>>', value);
+              });
+
+              //log.info({data: data}, 'command output');
+              var commentData = (platform_type === 'windows') ? windowsComment : linuxComment;
+              commentData = commentData + elementOfArray.TestCaseID + "\n";
+              writeToExecutable(infacmd_op_file, commentData);
+              writeToExecutable(infacmd_op_file, data);
             }
-          }, function (error, response, body) {
-            if (error) {
-              console.log(error);
+            callback();
+          }, function (err) {
+            if (err) {
+              log.error({ err: err }, 'Error from async array looping');
               return handleError(log, sendEmailObj);
             }
+            // for every worksheet completed- add line break
+            writeToExecutable(infacmd_op_file, "\n");
+            log.info("processing all elements completed");
+            callback();
+          });
+        }
+      }, function (err) {
+        if (err) {
+          log.error({err: err }, 'Error JSON array looping');
+          return handleError(log, sendEmailObj);
+        }
+        // File creation complete, invoke the script
+        log.info(infacmd_op_file, ' :infacmd_op_file');
 
-            if (config.sendEmail) {
-              console.log('response body == ' + body);
-              var emailContent = sendEmailObj.composeMail(body);
-              sendEmailObj.sendMail(emailContent, function (err, msg) {
-                log.info({err: err,  msg: msg }, 'Send Email ***');
-                process.exit(0);
-              });
-            } else {
-              log.info('*** Send Email turned off - Email not sent ***');
-              process.exit(0);
+        //Individual read + write + execute (full access to an individual)
+        if (platform_type === 'non-windows') {
+          fs.chmod(infacmd_op_file, '0700', function (err) {
+            if (err) {
+              log.error({err: err }, 'Error changing permission for executable file');
+              return handleError(log, sendEmailObj);
             }
           });
-          var form = req.form();
-          form.append('xml', trackerXml);
-          form.append('module', 'ATBB');
+
+          childProcess.exec('dos2unix ' + infacmd_op_file, function (err, stdout, stderr) {
+            log.info({stdout: stdout, stderr: stderr }, ' Execution done');
+            if (err) {
+              log.error({err: err }, 'ERROR Executing dos2unix command');
+              return handleError(log, sendEmailObj);
+            }
+          });
+        }
+
+        childProcess.exec(infacmd_op_file, {
+          timeout: config.ExecutionTimeout
+        }, function (err, stdout, stderr) {
+          if (err) {
+            log.error({err: err}, 'Error in executing file');
+            return handleError(log, sendEmailObj);
+          }
+          log.info({stdout: stdout, stderr: stderr }, ' Execution done');
+          generateReport(dqCliLogReader, sendEmailObj, xlsData, plugin, config, function(err, done) {
+            if (err) {
+              log.error({ err: err }, 'Error generateReport');
+              return handleError(log, sendEmailObj);
+            }
+            process.exit(0);
+          });
         });
       });
-    });
+  }
   });
 }
 
+function generateReport(dqCliLogReader, sendEmailObj, xlsData, plugin, config, cb) {
+  dqCliLogReader.generateExecutionXml(xlsData, plugin, function (err, trackerXml) {
+    if (err) {
+      console.log('Error in generating Xml');
+      return cb(err);
+    }
+    // XML generated invoke the service
+    console.log(config.qatrackurl, ' :qatrackurl');
+    var req = request.post({
+      url: config.qatrackurl,
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }, function (error, response, body) {
+      if (error) {
+        console.log(error);
+        return cb(err);
+      }
+
+      if (config.sendEmail) {
+        console.log('response body == ' + body);
+        var emailContent = sendEmailObj.composeMail(body);
+        sendEmailObj.sendMail(emailContent, function (err, msg) {
+          console.log('Send Email ***');
+          cb(null, 'Done Exit');
+        });
+      } else {
+        console.log('*** Send Email turned off - Email not sent ***');
+        cb(null, 'Done Exit');
+      }
+    });
+    var form = req.form();
+    form.append('xml', trackerXml);
+    form.append('module', 'ATBB');
+  });
+}
 main();
 
 process.on('uncaughtException', function (err) {
