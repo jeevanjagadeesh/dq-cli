@@ -29,9 +29,9 @@ Instructions:
 6) Execute node command
    i)Go to dqcli
   ii)Execute below command
-     node dq_cli.js -src <suite_xlsx_without_extn> -gp <override_config.json>
+     node dq_cli.js -src <suite_xlsx_without_extn> -gp <override_config.json> -se <if script execution needs to be skipped and report generated from logs>
         Our default project has testsuite "TestSuiteOIERTM.xls", so the command would look like below
-            node dq_cli.js -src TestSuiteOIERTM -gp config.json
+            node dq_cli.js -src TestSuiteOIERTM -gp config.json -se Y
 	
 
 =======================================================================================================================
