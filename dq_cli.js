@@ -276,7 +276,9 @@ function main() {
             }
           });
         }
-
+        log.info({timeout: config.ExecutionTimeout, infacmd_op_file: infacmd_op_file}, 'Just log the timeout');
+        // THIS is not correct, it must be sync.. TODO-Change code to synchrounous Execution
+        
         childProcess.exec(infacmd_op_file, {
           timeout: config.ExecutionTimeout
         }, function (err, stdout, stderr) {
