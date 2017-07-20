@@ -19,7 +19,7 @@
 "email_bcc":"jeevan-kumar.jagadeesh@hpe.com",
 "email_from": "no-reply@hpe.com",
 "emailHost": "smtp3.hpe.com",
-"ExecutionTimeout" : 1800000,
+"ExecutionTimeout" : 7800000,
 "qatrackurl" : "http://psrlxpamqa1:8080/qatrack/servlet/ImportXMLServlet",
 "qaHomeUrl" : "http://psrlxpamqa1:8080",
 "sendEmail" : true
